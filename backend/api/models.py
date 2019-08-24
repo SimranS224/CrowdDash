@@ -3,7 +3,13 @@ from api.app import db
 
 class Video(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.String)
     url = db.Column(db.String)
+    ext = db.Column(db.String)
+
+    @property
+    def filename(self):
+        return "{}.{}".format(self.id, self.ext)
 
 
 class Report(db.Model):
