@@ -130,12 +130,16 @@ def stream_video(video_id):
 
 @app.route('/aws/recog/', methods=['POST'])
 def send_photo_to_aws():
+    print("here")
     bucket='bucket'
-    photo= Image.open('plate.png')
-
+    # photo= 'photo'
+    imageFile= './api/plate.png'
     client=boto3.client('rekognition')
-    response=client.detect_text(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
-                        
+   
+    with open(imageFile, 'rb') as image:
+        response = client.detect_text(Image={'Bytes': image.read()})
+        
+    print('Detected labels in ' + imageFile)    
     textDetections=response['TextDetections']
     print ('Detected text')
     for text in textDetections:
@@ -145,4 +149,23 @@ def send_photo_to_aws():
             if 'ParentId' in text:
                 print ('Parent Id: {}'.format(text['ParentId']))
             print ('Type:' + text['Type'])
-            print
+
+
+    # for label in response['Labels']:
+    #     print (label['Name'] + ' : ' + str(label['Confidence']))
+
+    # print('Done...')
+
+    # client=boto3.client('rekognition')
+    # response=client.detect_text(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
+                        
+    # textDetections=response['TextDetections']
+    # print ('Detected text')
+    # for text in textDetections:
+    #         print ('Detected text:' + text['DetectedText'])
+    #         print ('Confidence: ' + "{:.2f}".format(text['Confidence']) + "%")
+    #         print ('Id: {}'.format(text['Id']))
+    #         if 'ParentId' in text:
+    #             print ('Parent Id: {}'.format(text['ParentId']))
+    #         print ('Type:' + text['Type'])
+    #         print
