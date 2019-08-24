@@ -13,5 +13,6 @@ $ source pyenv/bin/activate
 ```
 $ cd backend
 $ source pyenv/bin/activate
-(pyenv) $ ./run_server.sh
+(pyenv) $ ./run run # for running the flask server
+(pyenv) $ ./run shell # for running the flask shell
 ```
