@@ -1,0 +1,4 @@
+#Sat Aug 24 14:26:39 EDT 2019
+base.0=/home/nicolae/AndroidStudioProjects/grafika/app/build/intermediates/dex/debug/mergeDexDebug/out
+path.0=classes.dex
+renamed.0=classes.dex
