@@ -9,6 +9,10 @@ from api import utils
 from api.models import Report, Video
 from api.io import VideoIO
 
+import boto3
+import PIL
+from PIL import Image
+
 
 @app.route('/api/report/', methods=['GET', 'POST'], defaults={'report_id': None})
 @app.route('/api/report/<int:report_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -123,3 +127,46 @@ def stream_video(video_id):
     video_io = VideoIO(video_path)
     return Response(video_generator(video_io),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/aws/recog/', methods=['POST'])
+def send_photo_to_aws():
+    print("here")
+    bucket='bucket'
+    # photo= 'photo'
+    imageFile= './api/plate.png'
+    client=boto3.client('rekognition')
+   
+    with open(imageFile, 'rb') as image:
+        response = client.detect_text(Image={'Bytes': image.read()})
+        
+    print('Detected labels in ' + imageFile)    
+    textDetections=response['TextDetections']
+    print ('Detected text')
+    for text in textDetections:
+            print ('Detected text:' + text['DetectedText'])
+            print ('Confidence: ' + "{:.2f}".format(text['Confidence']) + "%")
+            print ('Id: {}'.format(text['Id']))
+            if 'ParentId' in text:
+                print ('Parent Id: {}'.format(text['ParentId']))
+            print ('Type:' + text['Type'])
+    return str(textDetections)
+
+
+    # for label in response['Labels']:
+    #     print (label['Name'] + ' : ' + str(label['Confidence']))
+
+    # print('Done...')
+
+    # client=boto3.client('rekognition')
+    # response=client.detect_text(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
+                        
+    # textDetections=response['TextDetections']
+    # print ('Detected text')
+    # for text in textDetections:
+    #         print ('Detected text:' + text['DetectedText'])
+    #         print ('Confidence: ' + "{:.2f}".format(text['Confidence']) + "%")
+    #         print ('Id: {}'.format(text['Id']))
+    #         if 'ParentId' in text:
+    #             print ('Parent Id: {}'.format(text['ParentId']))
+    #         print ('Type:' + text['Type'])
+    #         print
