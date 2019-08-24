@@ -7,3 +7,6 @@ pyenv/
 
 # SQLite
 db.sqlite
+
+# Data folder
+data/
