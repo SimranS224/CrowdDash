@@ -22,3 +22,22 @@ class Report(db.Model):
         self.longitude = longitude
         self.latitude = latitude
         self.video_id = video_id
+
+    @staticmethod
+    def validate_json(data):
+        missing = []
+        if 'user_id' not in data:
+            missing.append('user_id')
+        if 'timestamp' not in data:
+            missing.append('timestamp')
+        if 'location' not in data:
+            missing.append('location')
+        if 'longitude' not in data.get('location'):
+            missing.append('longitude')
+        if 'latitude' not in data.get('location'):
+            missing.append('latitude')
+        
+        if len(missing):
+            return False, missing
+        else:
+            return True, None

@@ -17,26 +17,17 @@ def report(report_id):
     elif request.method == 'POST':
         data = request.json
 
-        if 'user_id' not in data:
-            return 'No user_id given.'
-        if 'timestamp' not in data:
-            return 'No timestamp given.'
-        if 'location' not in data:
-            return 'No location given.'
-        
-        user_id = data['user_id']
-        timestamp = data['timestamp']
-        location = data['location']
+        valid, missing = Report.validate_json(data)
 
-        if 'longitude' not in location:
-            return 'No longitude given.'
-        if 'latitude' not in location:
-            return 'No latitude given.'
+        if not valid:
+            return jsonify({
+                'message': '{} not given in request.'.format(', '.join(missing))
+            }), 422
 
-        report = Report(user_id,
-                        timestamp,
-                        location['longitude'],
-                        location['latitude'])
+        report = Report(data['user_id'],
+                        data['timestamp'],
+                        data['location']['longitude'],
+                        data['location']['latitude'])
         db.session.add(report)
         db.session.commit()
 
@@ -49,12 +40,12 @@ def report(report_id):
 
     elif request.method == 'PUT':
         if 'video' not in request.files:
-            return jsonify({'message': 'Request does not have a file'}), 400
+            return jsonify({'message': 'Request does not have a file'}), 422
         
         file = request.files['video']
         
         if file.filename == '':
-            return jsonify({'message': 'Request does not have a file'}), 400
+            return jsonify({'message': 'Request does not have a file'}), 422
         
         if file and utils.allowed_file(file.filename):
             ext = utils.get_ext(file.filename)
