@@ -9,11 +9,23 @@ from api.models import Report, Video
 
 
 @app.route('/api/report/', methods=['GET', 'POST'], defaults={'report_id': None})
-@app.route('/api/report/<int:report_id>', methods=['GET', 'PUT'])
+@app.route('/api/report/<int:report_id>', methods=['GET', 'PUT', 'DELETE'])
 def report(report_id):
     if request.method == 'GET':
-        return 'GET'
-    
+        if report_id is None:
+            reports = Report.query.all()
+            reports = [r.to_dict() for r in reports]
+
+            return jsonify({
+                'data': reports
+            })
+        else:
+            report = Report.query.filter_by(id=report_id).first()
+
+            return jsonify({
+                'data': report.to_dict()
+            })
+
     elif request.method == 'POST':
         data = request.json
 
@@ -64,4 +76,9 @@ def report(report_id):
             return jsonify({'message': 'Successfully uploaded video.'})
 
     elif request.method == 'DELETE':
-        return 'DELETE'
+        report = Report.query.filter_by(id=report_id).first()
+        db.session.delete(report)
+        db.session.commit()
+        return jsonify({
+            'message': 'Successfully deleted.'
+        })

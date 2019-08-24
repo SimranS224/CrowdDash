@@ -41,3 +41,16 @@ class Report(db.Model):
             return False, missing
         else:
             return True, None
+
+    def to_dict(self):
+        obj = {}
+
+        obj['reporter_id'] = self.reporter_id
+        obj['timestamp'] = self.timestamp
+        obj['location'] = {
+            'longitude': self.longitude,
+            'latitude': self.latitude
+        }
+        obj['video_url'] = self.video.url
+
+        return obj
