@@ -1,0 +1,12 @@
+# VSCode
+.vscode/
+
+# Python
+__pycache__/
+pyenv/
+
+# SQLite
+db.sqlite
+
+# Data folder
+data/
