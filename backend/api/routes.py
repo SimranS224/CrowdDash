@@ -7,15 +7,16 @@ from api.app import app
 from api import utils
 
 
-@app.route('/api/report/', methods=['GET', 'POST'])
+@app.route('/api/report/', methods=['GET', 'POST'], defaults={'report_id': None})
 @app.route('/api/report/<int:report_id>', methods=['GET', 'PUT'])
 def report(report_id):
     if request.method == 'GET':
         return 'GET'
     
     elif request.method == 'POST':
-        return 'POST'
-    
+        data = request.json
+        return jsonify(data)
+
     elif request.method == 'PUT':
         if 'video' not in request.files:
             return jsonify({'message': 'Request does not have a file'}), 400
