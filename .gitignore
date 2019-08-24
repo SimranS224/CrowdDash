@@ -3,10 +3,7 @@
 
 # Python
 __pycache__/
-pyenv/
-
-# SQLite
-db.sqlite
+*.pyc
 
 # Data folder
 data/

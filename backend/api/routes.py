@@ -3,8 +3,9 @@ import uuid
 
 from flask import jsonify, request
 
-from api.app import app
+from api.app import app, db
 from api import utils
+from api.models import Report, Video
 
 
 @app.route('/api/report/', methods=['GET', 'POST'], defaults={'report_id': None})
@@ -15,7 +16,36 @@ def report(report_id):
     
     elif request.method == 'POST':
         data = request.json
-        return jsonify(data)
+
+        if 'user_id' not in data:
+            return 'No user_id given.'
+        if 'timestamp' not in data:
+            return 'No timestamp given.'
+        if 'location' not in data:
+            return 'No location given.'
+        
+        user_id = data['user_id']
+        timestamp = data['timestamp']
+        location = data['location']
+
+        if 'longitude' not in location:
+            return 'No longitude given.'
+        if 'latitude' not in location:
+            return 'No latitude given.'
+
+        report = Report(user_id,
+                        timestamp,
+                        location['longitude'],
+                        location['latitude'])
+        db.session.add(report)
+        db.session.commit()
+
+        return jsonify({
+            'message': 'Successfully created report.',
+            'data': {
+                'id': report.id
+            }
+        })
 
     elif request.method == 'PUT':
         if 'video' not in request.files:
@@ -32,7 +62,15 @@ def report(report_id):
             fpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(fpath)
 
-            return fpath
+            video = Video(url=fpath)
+            db.session.add(video)
+            db.session.commit()
+
+            report = Report.query.filter_by(id=report_id).first()
+            report.video_id = video.id
+            db.session.commit()
+
+            return jsonify({'message': 'Successfully uploaded video.'})
 
     elif request.method == 'DELETE':
         return 'DELETE'
