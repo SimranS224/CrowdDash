@@ -48,8 +48,8 @@
       <file leaf-file-name="ContinuousCaptureActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/grafika/ContinuousCaptureActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="354" column="55" lean-forward="true" selection-start-line="354" selection-start-column="55" selection-end-line="354" selection-end-column="55" />
+            <state relative-caret-position="182">
+              <caret line="562" column="9" lean-forward="true" selection-start-line="562" selection-start-column="9" selection-end-line="562" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -2465,7 +2465,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.13793103" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32965517" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="7" visible="true" weight="0.51448274" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="7" visible="true" weight="0.31448275" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -2765,8 +2765,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/grafika/ContinuousCaptureActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="354" column="55" lean-forward="true" selection-start-line="354" selection-start-column="55" selection-end-line="354" selection-end-column="55" />
+        <state relative-caret-position="182">
+          <caret line="562" column="9" lean-forward="true" selection-start-line="562" selection-start-column="9" selection-end-line="562" selection-end-column="9" />
         </state>
       </provider>
     </entry>

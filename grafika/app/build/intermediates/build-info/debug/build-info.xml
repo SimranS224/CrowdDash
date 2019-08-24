@@ -6,7 +6,7 @@
     density="420dpi"
     format="10"
     plugin-version="3.3.0"
-    timestamp="1566688484030"
+    timestamp="1566690599241"
     token="9060871284171928341"
     verifier="COLD_SWAP_REQUESTED" >
 
@@ -25,13 +25,13 @@
 
     <build
         build-mode="FULL"
-        timestamp="1566688181642"
+        timestamp="1566690091460"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
             type="SPLIT" />
         <artifact
             location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
@@ -69,7 +69,16 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1566688484030"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1566690343459"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1566690599241"
         verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

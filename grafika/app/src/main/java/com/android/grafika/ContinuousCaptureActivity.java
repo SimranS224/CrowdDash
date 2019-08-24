@@ -397,7 +397,8 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
             JSONObject jsonObject = new JSONObject(jsonString);
             System.out.println("sending json object");
             System.out.println(jsonObject);
-            post(URL, jsonObject.toString());
+            Object res = post(URL, jsonObject.toString());
+            System.out.println(res);
             System.out.println("send json object");
         }catch (JSONException err){
             Log.d("Error", err.toString());
