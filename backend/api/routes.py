@@ -149,6 +149,7 @@ def send_photo_to_aws():
             if 'ParentId' in text:
                 print ('Parent Id: {}'.format(text['ParentId']))
             print ('Type:' + text['Type'])
+    return str(textDetections)
 
 
     # for label in response['Labels']:
