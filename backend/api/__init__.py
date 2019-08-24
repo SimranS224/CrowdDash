@@ -1,2 +1,2 @@
 from api.app import app, db
-from api import routes
+from api import routes, models
