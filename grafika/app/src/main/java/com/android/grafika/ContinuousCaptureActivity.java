@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Display;
@@ -40,13 +41,25 @@ import com.android.grafika.gles.EglCore;
 import com.android.grafika.gles.FullFrameRect;
 import com.android.grafika.gles.Texture2dProgram;
 import com.android.grafika.gles.WindowSurface;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Demonstrates capturing video into a ring buffer.  When the "capture" button is clicked,
@@ -175,11 +188,20 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         SurfaceView sv = (SurfaceView) findViewById(R.id.continuousCapture_surfaceView);
         SurfaceHolder sh = sv.getHolder();
         sh.addCallback(this);
-
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new
+                    StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         mHandler = new MainHandler(this);
         mHandler.sendEmptyMessageDelayed(MainHandler.MSG_BLINK_TEXT, 1500);
 
         mOutputFile = new File(getFilesDir(), "continuous-capture.mp4");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("oncreate+++++++++++++++++++++");
+        System.out.println("mOutputFile");
+        System.out.println(mOutputFile);
         mSecondsOfVideo = 0.0f;
         updateControls();
     }
@@ -323,10 +345,30 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         }
     }
 
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
+    public static final String URL = "http://10.0.2.2:5000/api/report/";
+
+    OkHttpClient client = new OkHttpClient();
+//    Request request = new Request.Builder()
+//            .header("Content-Type", "application/json")
+//            .url("http://localhost:5000/api/report/")
+//            .build();
+    public String post(String url, String json) throws IOException {
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .header("Content-Type", "application/json")
+                .url(URL)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
     /**
      * Handles onClick for "capture" button.
      */
-    public void clickCapture(@SuppressWarnings("unused") View unused) {
+    public void clickCapture(@SuppressWarnings("unused") View unused) throws IOException, ParseException {
         Log.d(TAG, "capture");
         if (mFileSaveInProgress) {
             Log.w(TAG, "HEY: file save is already in progress");
@@ -346,8 +388,20 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
                 Locale.getDefault()).format(new Date());
         System.out.println("XXXXXXXXXXXXXXXXXXXXXX" + getFilesDir().getAbsolutePath() + "XXXXXXXXXXXXXXXXXXXXXx");
         mOutputFile = new File(getFilesDir(), timeStamp + ".mp4");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("mOutputFile");
+        System.out.println(mOutputFile);
 
-
+        String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\",\"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            System.out.println("sending json object");
+            System.out.println(jsonObject);
+            post(URL, jsonObject.toString());
+            System.out.println("send json object");
+        }catch (JSONException err){
+            Log.d("Error", err.toString());
+        }
         mCircEncoder.saveVideo(mOutputFile);
     }
 

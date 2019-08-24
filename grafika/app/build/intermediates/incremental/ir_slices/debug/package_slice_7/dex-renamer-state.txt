@@ -1,4 +1,1 @@
-#Sat Aug 24 14:00:19 EDT 2019
-base.0=/home/nicolae/AndroidStudioProjects/grafika/app/build/intermediates/transforms/dexMerger/debug/7
-path.0=classes.dex
-renamed.0=classes.dex
+#Sat Aug 24 19:06:32 EDT 2019
