@@ -35,7 +35,7 @@ class Image(db.Model):
 
         ext = '.jpg'
         file_id = uuid.uuid4().int
-        filename = str(file_id) + '.' + ext
+        filename = str(file_id) + ext
 
         abs_fpath = os.path.join(app.config['MEDIA_FOLDER'], filename)
         cv2.imwrite(abs_fpath, arr)

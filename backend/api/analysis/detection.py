@@ -51,7 +51,7 @@ def get_frame_detections(video_path, detect_interval=DETECT_INTERVAL):
 
         return rotateCode
 
-    rotate_code = check_rotation(video_path)
+    # rotate_code = check_rotation(video_path)
 
     # Load video
     vid = VideoIO(video_path)
@@ -72,8 +72,8 @@ def get_frame_detections(video_path, detect_interval=DETECT_INTERVAL):
         if h is None or w is None:
             h, w = frame.shape[:2]
         
-        if rotate_code is not None:
-            frame = cv2.rotate(frame, rotate_code)
+        # if rotate_code is not None:
+        #     frame = cv2.rotate(frame, rotate_code)
 
         # Convert from BGR to RGB
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)

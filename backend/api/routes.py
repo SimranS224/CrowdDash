@@ -10,10 +10,6 @@ from api.models import Report, Video, Image, Profile
 from api.io import VideoIO
 from api.analysis import pipelines
 
-import boto3
-import PIL
-from PIL import Image
-
 
 @app.route('/api/report/', methods=['GET', 'POST'], defaults={'report_id': None})
 @app.route('/api/report/<int:report_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -35,7 +31,7 @@ def report(report_id):
 
     elif request.method == 'POST':
         data = request.json
-
+        print(data)
         valid, missing = Report.validate_json(data)
 
         if not valid:
@@ -133,6 +129,8 @@ def profile(profile_id):
 @app.route('/video/<video_id>')
 def get_video(video_id):
     video = Video.query.filter_by(id=video_id).first()
+    if video is None:
+        return "ERROR NO video WITH ID {}".format(video_id), 404
     video_path = os.path.join(app.config['BASE_DIR'], video.path)
     
     try:
@@ -144,6 +142,8 @@ def get_video(video_id):
 @app.route('/image/<image_id>')
 def get_image(image_id):
     image = Image.query.filter_by(id=image_id).first()
+    if image is None:
+        return "ERROR NO IMAGE WITH ID {}".format(image_id), 404
     image_path = os.path.join(app.config['BASE_DIR'], image.path)
     
     try:

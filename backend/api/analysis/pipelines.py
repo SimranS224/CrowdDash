@@ -13,6 +13,8 @@ def hit(report, video_path):
     print('Finding nested detections...')
     # Get a list of nested detection pairs by bounding box
     # pairs = detection.find_nested_detections(frame_detections)
+
+    print(len(frame_detections))
     
     print('Finding target...')
     # The largest area is probably the car that hit us
@@ -26,9 +28,7 @@ def hit(report, video_path):
     # Save images
     car_img = Image.from_arr(car_det.img, report.id)
     # license_img = Image.from_arr(license_det.img, report.id)
-    vid = VideoIO(video_path)
-    frame = cv2.cvtColor(vid.get_frame(vid.length-1), cv2.COLOR_BGR2RGB)
-    accident_img = Image.from_arr(frame, report.id)
+    accident_img = Image.from_arr(last_frame, report.id)
 
     print('Adding images to report...')
     # Add images to the report
@@ -70,6 +70,7 @@ def witness(report, video_path):
     report.images.append(surr_img)
 
     report.analysis_complete = True
+    report.car_color = "{},{}".format(color.rgb_to_hex(*color.dominant_color(colliders[0].img)), color.rgb_to_hex(*color.dominant_color(colliders[1].img)))
     db.session.commit()
     print('Completed analysis...')
     return True
