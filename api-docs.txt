@@ -1,0 +1,208 @@
+GET /api/report/ - get all reports
+Example:
+{
+    "data": [
+        {
+            "analysis_complete": false,
+            "car_color": "",
+            "description": "",
+            "id": 1,
+            "image_urls": [],
+            "location": {
+                "lat": -78.42573667976711,
+                "lng": 44.54291602657724
+            },
+            "probability": null,
+            "reporter_id": 306144,
+            "timestamp": 1566677020,
+            "video_url": ""
+        },
+        {
+            "analysis_complete": false,
+            "car_color": "",
+            "description": "",
+            "id": 2,
+            "image_urls": [],
+            "location": {
+                "lat": -79.08043955387117,
+                "lng": 44.01031811015344
+            },
+            "probability": null,
+            "reporter_id": 262999,
+            "timestamp": 1566687474,
+            "video_url": ""
+        },
+        ...
+    ]
+}
+
+
+
+=================================================
+GET /api/report/<int:report_id>' - get one report
+Example:
+{
+    "data": {
+        "analysis_complete": false,
+        "car_color": "",
+        "description": "",
+        "id": 1,
+        "image_urls": [],
+        "location": {
+            "lat": -78.42573667976711,
+            "lng": 44.54291602657724
+        },
+        "probability": null,
+        "reporter_id": 306144,
+        "timestamp": 1566677020,
+        "video_url": ""
+    },
+}
+
+
+
+=================================================
+GET /api/profile/ - get all profiles
+Example:
+{
+    "data": [
+        {
+            "id": 1,
+            "license_plate": "1K30IP5K",
+            "reports": [
+                {
+                    "analysis_complete": false,
+                    "car_color": "",
+                    "description": "",
+                    "id": 1,
+                    "image_urls": [],
+                    "location": {
+                        "lat": -78.42573667976711,
+                        "lng": 44.54291602657724
+                    },
+                    "probability": null,
+                    "reporter_id": 306144,
+                    "timestamp": 1566677020,
+                    "video_url": ""
+                },
+                {
+                    "analysis_complete": false,
+                    "car_color": "",
+                    "description": "",
+                    "id": 2,
+                    "image_urls": [],
+                    "location": {
+                        "lat": -79.08043955387117,
+                        "lng": 44.01031811015344
+                    },
+                    "probability": null,
+                    "reporter_id": 262999,
+                    "timestamp": 1566687474,
+                    "video_url": ""
+                },
+                {
+                    "analysis_complete": false,
+                    "car_color": "",
+                    "description": "",
+                    "id": 3,
+                    "image_urls": [],
+                    "location": {
+                        "lat": -79.24844921773867,
+                        "lng": 44.49654148037836
+                    },
+                    "probability": null,
+                    "reporter_id": 147602,
+                    "timestamp": 1566680355,
+                    "video_url": ""
+                }
+            ],
+            "vehicle": "Van"
+        },
+        {
+            "id": 2,
+            "license_plate": "B4IAD779",
+            "reports": [
+                {
+                    "analysis_complete": false,
+                    "car_color": "",
+                    "description": "",
+                    "id": 4,
+                    "image_urls": [],
+                    "location": {
+                        "lat": -78.83830580454794,
+                        "lng": 43.758667910216666
+                    },
+                    "probability": null,
+                    "reporter_id": 295686,
+                    "timestamp": 1566676185,
+                    "video_url": ""
+                },
+                {
+                    "analysis_complete": false,
+                    "car_color": "",
+                    "description": "",
+                    "id": 5,
+                    "image_urls": [],
+                    "location": {
+                        "lat": -78.93970321351007,
+                        "lng": 43.75481405927869
+                    },
+                    "probability": null,
+                    "reporter_id": 95847,
+                    "timestamp": 1566692073,
+                    "video_url": ""
+                }
+            ],
+            "vehicle": "SUV"
+        }
+    ]
+}
+
+
+
+
+=====================================================================================
+GET /api/profile/?license_plate=XXXXXXXX - get profile where license_plate = XXXXXXXX
+Example:
+{
+    "data": {
+        "id": 1,
+        "license_plate": "1K30IP5K",
+        "reports": [
+            {
+                "analysis_complete": false,
+                "car_color": "",
+                "description": "",
+                "id": 1,
+                "image_urls": [],
+                "location": {
+                    "lat": -78.42573667976711,
+                    "lng": 44.54291602657724
+                },
+                "probability": null,
+                "reporter_id": 306144,
+                "timestamp": 1566677020,
+                "video_url": ""
+            },
+            ...
+        ],
+        "vehicle": "Van"
+    }
+}
+
+
+=================================================
+GET /api/profile/<profile_id> - get one profile
+
+
+=================================================
+GET /video/<video_id> - get video file
+
+
+
+=================================================
+GET /image/<image_id> - get image file
+
+
+=================================================
+GET /stream/<video_id> - stream frames, don't use this
