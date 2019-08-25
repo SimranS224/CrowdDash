@@ -92,6 +92,7 @@
         </activity>
         <activity
             android:name="com.android.grafika.ContinuousCaptureActivity"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_continuous_capture" >
         </activity>
         <activity

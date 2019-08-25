@@ -22,6 +22,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
@@ -95,6 +96,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 import static android.widget.Toast.makeText;
 
 
@@ -113,6 +115,9 @@ import static android.widget.Toast.makeText;
 public class ContinuousCaptureActivity extends Activity implements SurfaceHolder.Callback,
         SurfaceTexture.OnFrameAvailableListener, RecognitionListener {
     private static final String TAG = MainActivity.TAG;
+    public static final String HOST = "https://836b000a.ngrok.io";
+    // 0 for witness, 1 for involved
+    public String report_type = "unknown";
 
     private static final int VIDEO_WIDTH = 1280;  // dimensions for 720p video
     private static final int VIDEO_HEIGHT = 720;
@@ -137,6 +142,10 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
 
     private MainHandler mHandler;
     private float mSecondsOfVideo;
+    public int INCIDENT = 0;
+    Button button_hit;
+    Button button_witness;
+
 
 
     /* We only need the keyphrase to start recognition, one menu with list of choices,
@@ -269,6 +278,103 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
             return;
         }
+        button_hit =  findViewById(R.id.hit);
+        button_witness =  findViewById(R.id.witness);
+        button_hit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                report_type = "hit";
+                Log.d(TAG, "capture");
+                if (mFileSaveInProgress) {
+                    Log.w(TAG, "HEY: file save is already in progress");
+                    return;
+                }
+
+                // The button is disabled in onCreate(), and not enabled until the encoder and output
+                // surface is ready, so it shouldn't be possible to get here with a null mCircEncoder.
+                mFileSaveInProgress = true;
+                updateControls();
+                TextView tv = (TextView) findViewById(R.id.recording_text);
+                String str = getString(R.string.nowSaving);
+                tv.setText(str);
+                // get a new file
+                //mOutputFile = getOutputMediaFile();
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                        Locale.getDefault()).format(new Date());
+                System.out.println("XXXXXXXXXXXXXXXXXXXXXX" + getFilesDir().getAbsolutePath() + "XXXXXXXXXXXXXXXXXXXXXx");
+                mOutputFile = new File(getFilesDir().getAbsolutePath(), timeStamp + ".mp4");
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                mCircEncoder.saveVideo(mOutputFile);
+                System.out.println("mOutputFile");
+                System.out.println(mOutputFile);
+
+                String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\"hit\", \"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonString);
+                    System.out.println("sending json object");
+                    System.out.println(jsonObject);
+                    String jsonAsString = jsonObject.toString();
+                    Object res = post(URL, jsonAsString);
+                    System.out.println("post done");
+                    Object resVideo = sendVideo(VIDEOUPLOADURL, mOutputFile, res.toString());
+                    System.out.println("putdone");
+                    System.out.println(resVideo);
+                    System.out.println("send json object");
+                }catch (JSONException err){
+                    Log.d("Error", err.toString());
+                } catch (Exception e) {
+                    Log.e("Error", e.toString());
+                }
+                report_type = "unknown";
+            }
+        });
+        button_witness.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                report_type = "witness";
+                Log.d(TAG, "capture");
+                if (mFileSaveInProgress) {
+                    Log.w(TAG, "HEY: file save is already in progress");
+                    return;
+                }
+
+                // The button is disabled in onCreate(), and not enabled until the encoder and output
+                // surface is ready, so it shouldn't be possible to get here with a null mCircEncoder.
+                mFileSaveInProgress = true;
+                updateControls();
+                TextView tv = (TextView) findViewById(R.id.recording_text);
+                String str = getString(R.string.nowSaving);
+                tv.setText(str);
+                // get a new file
+                //mOutputFile = getOutputMediaFile();
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                        Locale.getDefault()).format(new Date());
+                System.out.println("XXXXXXXXXXXXXXXXXXXXXX" + getFilesDir().getAbsolutePath() + "XXXXXXXXXXXXXXXXXXXXXx");
+                mOutputFile = new File(getFilesDir().getAbsolutePath(), timeStamp + ".mp4");
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                mCircEncoder.saveVideo(mOutputFile);
+                System.out.println("mOutputFile");
+                System.out.println(mOutputFile);
+
+                String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\"hit\", \"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonString);
+                    System.out.println("sending json object");
+                    System.out.println(jsonObject);
+                    String jsonAsString = jsonObject.toString();
+                    Object res = post(URL, jsonAsString);
+                    System.out.println("post done");
+                    Object resVideo = sendVideo(VIDEOUPLOADURL, mOutputFile, res.toString());
+                    System.out.println("putdone");
+                    System.out.println(resVideo);
+                    System.out.println("send json object");
+                }catch (JSONException err){
+                    Log.d("Error", err.toString());
+                } catch (Exception e) {
+                    Log.e("Error", e.toString());
+                }
+                report_type = "unknown";
+            }
+        });
+
 
     }
 
@@ -344,9 +450,19 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         } else if (text.equals("i am an observer")) {
             System.out.println("i am an observer!");
             makeText(getApplicationContext(), "I am an observer!", Toast.LENGTH_SHORT).show();
+           // report_type = "witness";
+            INCIDENT = 0;
+            recognizer.stop();
+            button_witness.performClick();
         } else if (text.equals("somebody crashed into me")) {
             System.out.println("somebody crashed into me");
             makeText(getApplicationContext(), "somebody crashed into me", Toast.LENGTH_SHORT).show();
+            //report_type = "hit";
+            INCIDENT = 1;
+            recognizer.stop();
+            button_hit.performClick();
+
+
         } else {
             System.out.println(hypothesis.getHypstr());
         }
@@ -358,6 +474,10 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
     public void onResult(Hypothesis hypothesis) {
         if (hypothesis != null) {
             System.out.println(hypothesis.getHypstr());
+        }
+        if(INCIDENT == 1 || INCIDENT == 0){
+            INCIDENT = -1;
+            switchSearch(KWS_SEARCH);
         }
     }
     @Override
@@ -383,7 +503,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         if (searchName.equals(KWS_SEARCH))
             recognizer.startListening(searchName);
         else
-            recognizer.startListening(searchName, 10000);
+            recognizer.startListening(searchName, 20000);
     }
 
     @Override
@@ -540,7 +660,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
 //        tv.setText(str);
 
         boolean wantEnabled = (mCircEncoder != null) && !mFileSaveInProgress;
-        Button button = (Button) findViewById(R.id.capture_button);
+        Button button = (Button) findViewById(R.id.hit);
         if (button.isEnabled() != wantEnabled) {
             Log.d(TAG, "setting enabled = " + wantEnabled);
             button.setEnabled(wantEnabled);
@@ -549,9 +669,9 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    public static final String URL = "http://ce892d09.ngrok.io/api/report/";
+    public static final String URL = HOST + "/api/report/";
 //    public static final String VIDEOUPLOADURL = "http://10.0.2.2:5000/api/report/1";
-    public static final String VIDEOUPLOADURL = "http://ce892d09.ngrok.io/api/report/1";
+    public static final String VIDEOUPLOADURL = HOST + "/api/report/";
 
     OkHttpClient client = new OkHttpClient();
 //    Request request = new Request.Builder()
@@ -579,7 +699,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         return type;
     }
 
-    public String sendVideo(String url, File f) throws IOException {
+    public String sendVideo(String url, File f, String reportId) throws IOException {
         String content_type  = getMimeType(f.getPath());
 
         String file_path = f.getAbsolutePath();
@@ -591,9 +711,10 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
                 .addFormDataPart("type",content_type)
                 .addFormDataPart("video",file_path.substring(file_path.lastIndexOf("/")+1), file_body)
                 .build();
-
+        String the_url = URL + reportId;
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXX" + the_url + "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         Request request = new Request.Builder()
-                .url(VIDEOUPLOADURL)
+                .url(the_url)
                 .put(request_body)
                 .build();
 
@@ -774,14 +895,15 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         System.out.println("mOutputFile");
         System.out.println(mOutputFile);
 
-        String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\",\"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
+        String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\"hit\", \"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             System.out.println("sending json object");
             System.out.println(jsonObject);
-            Object res = post(URL, jsonObject.toString());
+            String jsonAsString = jsonObject.toString();
+            Object res = post(URL, jsonAsString);
             System.out.println("post done");
-            Object resVideo = sendVideo(VIDEOUPLOADURL, mOutputFile);
+            Object resVideo = sendVideo(VIDEOUPLOADURL, mOutputFile, res.toString());
             System.out.println("putdone");
             System.out.println(resVideo);
             System.out.println("send json object");
@@ -791,6 +913,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
             Log.e("Error", e.toString());
             throw e;
         }
+        report_type = "unknown";
     }
 
     /**
@@ -892,7 +1015,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         //       (can we guarantee that camera preview size is compatible with AVC video encoder?)
         try {
             mCircEncoder = new CircularEncoder(VIDEO_WIDTH, VIDEO_HEIGHT, 6000000,
-                    mCameraPreviewThousandFps / 1000, 7, mHandler);
+                    mCameraPreviewThousandFps / 1000, 15, mHandler);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }

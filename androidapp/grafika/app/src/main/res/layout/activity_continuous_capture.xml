@@ -64,29 +64,26 @@
         >
 
         <Button
+            android:id="@+id/witness"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save Last Minute"
+            android:text="Witnessed Incident"
             android:background="@drawable/rounded_buttons"
-            android:onClick="clickCapture"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="8dp"
 
             />
 
         <Button
+            android:id="@+id/hit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/capture_button"
-            android:onClick="clickCapture"
+            android:text="Suffered Accident"
             android:background="@drawable/rounded_buttons"
             android:layout_marginRight="8dp"
-
-
-
-            android:text="Submit Report"/>
+/>
     </LinearLayout>
 
     <!--<Button
