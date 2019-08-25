@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".ContinuousCaptureActivity"
+    android:padding="16dp"
+    >
+
+
+
+    <!--<TextView
+        android:id="@+id/capturedVideoDesc_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/capture_button"
+        android:layout_alignBottom="@id/capture_button"
+        android:layout_toRightOf="@id/capture_button"
+        android:text="@string/secondsOfVideo" />-->
+
+    <com.android.grafika.AspectFrameLayout
+        android:id="@+id/continuousCapture_afl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" >
+
+        <SurfaceView
+            android:id="@+id/continuousCapture_surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+    </com.android.grafika.AspectFrameLayout>
+
+    <TextView
+        android:id="@+id/recording_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/continuousCapture_afl"
+        android:layout_alignTop="@id/continuousCapture_afl"
+        android:text="@string/nowRecording"
+        android:textColor="#f00"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <!--<ImageView android:id="@+id/capture_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="clickCapture"
+        android:text="@string/capture"
+        android:src="@drawable/ic_record"
+        android:paddingBottom="24dp"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/capture"
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/continuousCapture_afl"
+        android:paddingBottom="12dp"
+        >
+
+        <Button
+            android:id="@+id/witness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Witnessed Incident"
+            android:background="#2699FB"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+
+            />
+
+        <Button
+            android:id="@+id/hit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Suffered Accident"
+            android:background="#2699FB"
+            android:layout_marginRight="32dp"
+/>
+    </LinearLayout>
+
+    <!--<Button
+        android:id="@+id/capture_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="clickCapture"
+        android:text="@string/capture" />-->
+
+
+</RelativeLayout>
