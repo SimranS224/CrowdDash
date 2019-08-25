@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/header"
+    android:paddingHorizontal="16dp">
+
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/crowd_dash"
+    android:layout_above="@id/login"/>
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="LOGIN"
+    android:textColor="@color/white"
+    android:layout_above="@+id/edit_texts"
+    android:layout_centerHorizontal="true"
+    android:textSize="30dp"
+    android:id="@+id/login"
+    />
+
+<LinearLayout
+    android:id="@+id/edit_texts"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginVertical="32dp"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    >
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="stroncea.nicolae@gmail.com"
+        android:background="@drawable/rounded_edittext"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:layout_marginBottom="32dp"
+
+
+        />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:text="*********"
+        android:background="@drawable/rounded_edittext" />
+
+
+</LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:text="Continue"
+        android:background="#2699FB"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="64dp"
+        android:onClick="moveToRecord"/>
+
+
+
+
+</RelativeLayout>

@@ -57,6 +57,8 @@ def report(report_id):
         })
 
     elif request.method == 'PUT':
+        print(request.headers)
+
         if 'video' not in request.files:
             return jsonify({'message': 'Request does not have a file'}), 422
         

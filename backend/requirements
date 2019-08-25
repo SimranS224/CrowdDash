@@ -4,3 +4,4 @@ Flask-Migrate==2.5.2
 imageio==2.5.0
 opencv-python==4.1.0.25
 Pillow
+boto3
