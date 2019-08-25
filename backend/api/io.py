@@ -47,6 +47,13 @@ class VideoIO():
         else:
             return None
         return frame
+    
+    def set_playhead(self, frame_num):
+        """Get the next frame of video."""
+        if frame_num >= 0 and frame_num <= self.length:
+            self.cap.set(cv2.CAP_PROP_POS_FRAMES, frame_num)
+        else:
+            raise IndexError('frame_num is out of bounds of the number of frames.')
 
     def save(self, fpath):
         """Save video to `fpath`."""

@@ -6,3 +6,6 @@ db.sqlite
 
 # Uploads folder
 uploads/
+
+# env
+.env
