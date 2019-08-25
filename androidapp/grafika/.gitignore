@@ -107,3 +107,6 @@ build/*
 /captures
 .idea/workspace.xml
 .externalNativeBuild
+androidapp/grafika/.idea/workspace.xml
+./idea/workspace.xml
+.idea/*
