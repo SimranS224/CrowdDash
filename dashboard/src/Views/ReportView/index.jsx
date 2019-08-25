@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card } from 'react-bootstrap'
+import ReactPlayer from 'react-player'
 import Loading from '../../Components/Loading';
 import MenuBar from "../../Components/MenuBar";
 import ViolationMap from "../../Components/ViolationMap";
@@ -91,7 +92,7 @@ class ReportView extends Component {
                     </Card>
                 </div>
                 <div className="cardRow" id="bottomRow">
-                    <Card id="vehicleCard" className="text-center card">
+                    <Card id="evidenceCard" className="text-center card">
                         <Card.Header className="cardHeader">Evidence Set</Card.Header>
                         <div className="fullscreen imageGalleryContainer">
                             <Gallery
@@ -102,6 +103,17 @@ class ReportView extends Component {
                                 onClick={_ => true}
                                 onTouchEnd={_ => true}
                                 enableImageSelection={false}
+                            />
+                        </div>
+                    </Card>
+                    <Card id="vidCard" className="text-center card">
+                        <Card.Header className="cardHeader">CrowdDash Video</Card.Header>
+                        <div className="fullscreen videoContainer">
+                            <ReactPlayer
+                                className="videoPlayer"
+                                url={serverUrl + "/" + this.state.report.video_url}
+                                controls={true}
+                                playsinline={true}
                             />
                         </div>
                     </Card>

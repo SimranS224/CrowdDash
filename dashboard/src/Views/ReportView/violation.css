@@ -127,9 +127,27 @@
 }
 
 #topRow {
-    height: 55%;
+    height: 50%;
 }
 
 #bottomRow {
-    height: 35%;
+    height: 37%;
+}
+
+#vidCard {
+    height: 100%;
+    width: 32%;
+    overflow: hidden;
+}
+
+.videoPlayer {
+    height: 85%;
+    width: 50%;
+}
+
+#evidenceCard {
+    width: 60%;
+    height: 100%;
+    background-color: var(--primary);
+    overflow: hidden;
 }

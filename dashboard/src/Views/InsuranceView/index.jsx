@@ -129,7 +129,7 @@ class InsuranceView extends Component {
                                 </tr>
                             </thead>
                             <tbody className="tableBody">
-                                {this.state.reports.map((report, i) => {
+                                {this.state.reports.reverse().map((report, i) => {
                                     return (
                                         <tr key={i} className="linkToViolation" onClick={() => this.handleMarkerClick(report)}>
                                             <td className="tabletext">{i + 1}</td>
