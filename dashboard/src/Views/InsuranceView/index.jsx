@@ -79,6 +79,10 @@ class InsuranceView extends Component {
         return true;
     }
 
+    handleMarkerClick = (report) => {
+        window.location.href = `/report/${report.id}`
+    }
+
     render = () => {
         if (this.state.isLoading) return <Loading />
         if (this.state.selection) {
@@ -127,9 +131,9 @@ class InsuranceView extends Component {
                             <tbody className="tableBody">
                                 {this.state.reports.map((report, i) => {
                                     return (
-                                        <tr key={i} className="linkToViolation">
+                                        <tr key={i} className="linkToViolation" onClick={() => this.handleMarkerClick(report)}>
                                             <td className="tabletext">{i + 1}</td>
-                                            <td className="tabletext">{report.reporter_id}</td>
+                                            <td className="tabletext">{report.id}</td>
                                             <td className="tabletext">{report.analysis_complete ? "Complete" : "In Progress"}</td>
                                             <td className="tabletext">{new Date(1000 * Number(report.timestamp)).toUTCString()}</td>
                                         </tr>

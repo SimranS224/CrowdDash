@@ -377,7 +377,13 @@ export class MapContainer extends Component {
     }
 
     updateMarkers = async () => {
-        const locations = Object.values(this.props.selection.violations)
+        let locations
+        if (this.props.selection.violations) {
+            locations = Object.values(this.props.selection.violations)
+        } else {
+            locations = [this.props.selection]
+            console.log(locations)
+        }
         this.setState({ stores: locations, isLoading: false })
     }
 
