@@ -86,4 +86,7 @@ lint/tmp/
 app/.classpath
 app/.project
 app/.settings/
-./app/build/*.
+app/.build/
+.idea/caches/build_file_checksums.ser
+.idea/misc.xml
+.idea/workspace.xml
