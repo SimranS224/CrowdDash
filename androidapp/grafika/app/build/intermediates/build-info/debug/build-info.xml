@@ -1,84 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="x86"
-    api-level="27"
-    build-mode="COLD"
+    abi="arm64-v8a,armeabi-v7a,armeabi"
+    api-level="28"
+    build-mode="FULL"
     density="420dpi"
     format="10"
     plugin-version="3.3.0"
-    timestamp="1566690599241"
-    token="9060871284171928341"
-    verifier="COLD_SWAP_REQUESTED" >
+    timestamp="1566709479727"
+    token="776273941031695051"
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="2061" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="38" />
     <task
         name="verifier"
-        duration="0" />
+        duration="11" />
+
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1566690091460"
+        timestamp="1566709479727"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
+            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
             type="SPLIT_MAIN" />
     </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1566690343459"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
-            type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        timestamp="1566690599241"
-        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

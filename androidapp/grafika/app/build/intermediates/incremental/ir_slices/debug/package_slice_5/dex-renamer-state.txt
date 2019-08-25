@@ -1,4 +1,4 @@
-#Sat Aug 24 19:06:32 EDT 2019
-base.0=/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/transforms/dexMerger/debug/5
+#Sun Aug 25 00:20:04 EDT 2019
+base.0=/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/transforms/dexMerger/debug/5
 path.0=classes.dex
 renamed.0=classes.dex

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/grafika/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-el/values-el.xml",
+            "outputFile": "/Users/simran/Documents/hackathons/hackthe6ix/InsureCam/androidapp/grafika/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-el/values-el.xml",
             "map": [
                 {
                     "source": "/Users/simran/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/68017774e02460179f8176fc439e60b0/res/values-el/values-el.xml",

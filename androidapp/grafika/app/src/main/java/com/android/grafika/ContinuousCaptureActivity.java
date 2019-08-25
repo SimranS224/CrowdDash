@@ -16,8 +16,11 @@
 
 package com.android.grafika;
 
+import android.content.ContentResolver;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.opengl.GLES20;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,6 +35,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,18 +45,21 @@ import com.android.grafika.gles.EglCore;
 import com.android.grafika.gles.FullFrameRect;
 import com.android.grafika.gles.Texture2dProgram;
 import com.android.grafika.gles.WindowSurface;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+//import com.squareup.okhttp.MediaType;
+//import com.squareup.okhttp.OkHttpClient;
+//import com.squareup.okhttp.Request;
+//import okhttp.RequestBody;
+//import com.squareup.okhttp.Response;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,6 +67,17 @@ import java.util.Locale;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okio.BufferedSink;
+import okio.Okio;
 
 /**
  * Demonstrates capturing video into a ring buffer.  When the "capture" button is clicked,
@@ -144,20 +162,20 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
 
             switch (msg.what) {
                 case MSG_BLINK_TEXT: {
-                    TextView tv = (TextView) activity.findViewById(R.id.recording_text);
-
-                    // Attempting to make it blink by using setEnabled() doesn't work --
-                    // it just changes the color.  We want to change the visibility.
-                    int visibility = tv.getVisibility();
-                    if (visibility == View.VISIBLE) {
-                        visibility = View.INVISIBLE;
-                    } else {
-                        visibility = View.VISIBLE;
-                    }
-                    tv.setVisibility(visibility);
-
-                    int delay = (visibility == View.VISIBLE) ? 1000 : 200;
-                    sendEmptyMessageDelayed(MSG_BLINK_TEXT, delay);
+//                    TextView tv = (TextView) activity.findViewById(R.id.recording_text);
+//
+//                    // Attempting to make it blink by using setEnabled() doesn't work --
+//                    // it just changes the color.  We want to change the visibility.
+//                    int visibility = tv.getVisibility();
+//                    if (visibility == View.VISIBLE) {
+//                        visibility = View.INVISIBLE;
+//                    } else {
+//                        visibility = View.VISIBLE;
+//                    }
+//                    tv.setVisibility(visibility);
+//
+//                    int delay = (visibility == View.VISIBLE) ? 1000 : 200;
+//                    sendEmptyMessageDelayed(MSG_BLINK_TEXT, delay);
                     break;
                 }
                 case MSG_FRAME_AVAILABLE: {
@@ -269,7 +287,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         int numCameras = Camera.getNumberOfCameras();
         for (int i = 0; i < numCameras; i++) {
             Camera.getCameraInfo(i, info);
-            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
                 mCamera = Camera.open(i);
                 break;
             }
@@ -347,7 +365,9 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    public static final String URL = "http://10.0.2.2:5000/api/report/";
+    public static final String URL = "http://ce892d09.ngrok.io/api/report/";
+//    public static final String VIDEOUPLOADURL = "http://10.0.2.2:5000/api/report/1";
+    public static final String VIDEOUPLOADURL = "http://ce892d09.ngrok.io/api/report/1";
 
     OkHttpClient client = new OkHttpClient();
 //    Request request = new Request.Builder()
@@ -363,6 +383,183 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
                 .build();
         Response response = client.newCall(request).execute();
         return response.body().string();
+    }
+
+
+    public static String getMimeType(String url) {
+        String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        }
+        return type;
+    }
+
+    public String sendVideo(String url, File f) throws IOException {
+        String content_type  = getMimeType(f.getPath());
+
+        String file_path = f.getAbsolutePath();
+        OkHttpClient client = new OkHttpClient();
+        RequestBody file_body = RequestBody.create(MediaType.parse(content_type),f);
+
+        RequestBody request_body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("type",content_type)
+                .addFormDataPart("video",file_path.substring(file_path.lastIndexOf("/")+1), file_body)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(VIDEOUPLOADURL)
+                .put(request_body)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+
+            if(!response.isSuccessful()){
+                throw new IOException("Error : "+response);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "done";
+
+        /////////////
+//        try {
+//            System.out.println("hrer");
+//            RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+//                    .addFormDataPart("video", videopath.getName(),
+//                            RequestBody.create(MediaType.parse("video/mp4"), videopath))
+//                    .build();
+//
+//            Request request = new Request.Builder()
+//                    .url(VIDEOUPLOADURL)
+//                    .put(requestBody)
+//                    .build();
+//
+//            client.newCall(request).enqueue(new Callback() {
+//
+//                @Override
+//                public void onFailure(final Call call, final IOException e) {
+//                    // Handle the error
+//                }
+//
+//                @Override
+//                public void onResponse(final Call call, final Response response) throws IOException {
+//                    if (!response.isSuccessful()) {
+//                        // Handle the error
+//                    }
+//                    // Upload successful
+//                }
+//            });
+//
+//            return "true";
+//        } catch (Exception ex) {
+//            // Handle the error
+//        }
+//        return "false";
+        ///////////////////////////
+
+//        try {
+//            System.out.println("start");
+//            RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+//                    .addFormDataPart("video", videopath.getName(),
+//                            RequestBody.create(MediaType.parse("video/mp4"), videopath))
+//                    .addFormDataPart("videoother", videopath.toString())
+//                    .build();
+//            System.out.println("request body");
+//            System.out.println(requestBody);
+//            Request request = new Request.Builder()
+//                    .url(VIDEOUPLOADURL)
+//                    .put(requestBody)
+//                    .build();
+//            System.out.println("");
+//
+//            client.newCall(request).enqueue(new Callback() {
+//
+//                @Override
+//                public void onFailure(final Call call, final IOException e) {
+//                    // Handle the error
+//                }
+//
+//                @Override
+//                public void onResponse(final Call call, final Response response) throws IOException {
+//                    if (!response.isSuccessful()) {
+//                        // Handle the error
+//                    }
+//                    // Upload successful
+//                }
+//            });
+//
+//            return "true";
+//        } catch (Exception ex) {
+//            // Handle the error
+//        }
+//        return "false";
+//        System.out.println("in send video");
+//
+//        ContentResolver contentResolver = getContentResolver();
+//        System.out.println("before");
+//        System.out.println("videopath");
+//        System.out.println(videopath);
+//        System.out.println("uri");
+////        photoFile= new File(contentUri.getPath());
+//
+//        Uri videoURi= Uri.parse( "file:/" + videopath.toString());
+//        System.out.println(videoURi);
+//        final String contentType = "video/mp4";
+//        System.out.println(contentType);
+//        final AssetFileDescriptor fd = contentResolver.openAssetFileDescriptor(videoURi, "r");
+//        System.out.println("after");
+//        if (fd == null) {
+//            throw new FileNotFoundException("could not open file descriptor");
+//        }
+//        RequestBody videoFile = new RequestBody() {
+//            @Override public long contentLength() { return fd.getDeclaredLength(); }
+//            @Override public MediaType contentType() { return MediaType.parse(contentType); }
+//            @Override public void writeTo(BufferedSink sink) throws IOException {
+//                try {
+//                    InputStream is = fd.createInputStream();
+//                    sink.writeAll(Okio.buffer(Okio.source(is)));
+//                }catch (IOException ex) {
+//                    Log.e("Error", ex.toString());
+//                }
+//            }
+//        };
+//        System.out.println("created videofile");
+//        RequestBody requestBody = new MultipartBody.Builder()
+//                .setType(MultipartBody.FORM)
+//                .addFormDataPart("file", "fname", videoFile)
+//                .build();
+//        Request request = new Request.Builder()
+//                .url(VIDEOUPLOADURL)
+//                .post(requestBody)
+//                .build();
+//        System.out.println("about to call request: " + request.toString());
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override public void onFailure(Call call, IOException e) {
+//                try {
+//                    fd.close();
+//                } catch (IOException ex) {
+//                    Log.d("Error", ex.toString());
+////                    e.addSuppressed(ex);
+//                }
+//                Log.e(TAG, "failed", e);
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+//                System.out.println(response);
+//                System.out.println("success");
+//                fd.close();
+//            }
+//
+////            @Override public void onResponse(Call call, Response response) throws IOException {
+////                fd.close();
+////            }
+//        });
+//        return "hre";
     }
 
     /**
@@ -387,8 +584,9 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(new Date());
         System.out.println("XXXXXXXXXXXXXXXXXXXXXX" + getFilesDir().getAbsolutePath() + "XXXXXXXXXXXXXXXXXXXXXx");
-        mOutputFile = new File(getFilesDir(), timeStamp + ".mp4");
+        mOutputFile = new File(getFilesDir().getAbsolutePath(), timeStamp + ".mp4");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        mCircEncoder.saveVideo(mOutputFile);
         System.out.println("mOutputFile");
         System.out.println(mOutputFile);
 
@@ -398,12 +596,17 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
             System.out.println("sending json object");
             System.out.println(jsonObject);
             Object res = post(URL, jsonObject.toString());
-            System.out.println(res);
+            System.out.println("post done");
+            Object resVideo = sendVideo(VIDEOUPLOADURL, mOutputFile);
+            System.out.println("putdone");
+            System.out.println(resVideo);
             System.out.println("send json object");
         }catch (JSONException err){
             Log.d("Error", err.toString());
+        } catch (Exception e) {
+            Log.e("Error", e.toString());
+            throw e;
         }
-        mCircEncoder.saveVideo(mOutputFile);
     }
 
     /**
@@ -573,7 +776,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         int viewHeight = sv.getHeight();
         GLES20.glViewport(0, 0, viewWidth, viewHeight);
         mFullFrameBlit.drawFrame(mTextureId, mTmpMatrix);
-        drawExtra(mFrameNum, viewWidth, viewHeight);
+//        drawExtra(mFrameNum, viewWidth, viewHeight);
         mDisplaySurface.swapBuffers();
 
         // Send it to the video encoder.
@@ -581,7 +784,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
             mEncoderSurface.makeCurrent();
             GLES20.glViewport(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
             mFullFrameBlit.drawFrame(mTextureId, mTmpMatrix);
-            drawExtra(mFrameNum, VIDEO_WIDTH, VIDEO_HEIGHT);
+//            drawExtra(mFrameNum, VIDEO_WIDTH, VIDEO_HEIGHT);
             mCircEncoder.frameAvailableSoon();
             mEncoderSurface.setPresentationTime(mCameraTexture.getTimestamp());
             mEncoderSurface.swapBuffers();
