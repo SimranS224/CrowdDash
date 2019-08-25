@@ -1,0 +1,24 @@
+.loadingBG {
+    background-color: var(--secondary);
+    color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.loadingParticles {
+    position: absolute;
+}
+
+.title {
+    position: absolute;
+    height: 5vh;
+    top: 30vh;
+    width: 100vw;
+    text-align: center;
+    font-size: 5em;
+    z-index: 5;
+    color: var(--primary);
+}

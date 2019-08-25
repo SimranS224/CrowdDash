@@ -1,0 +1,77 @@
+.dashboardBG {
+    background-color: var(--primary);
+    color: var(--quaternary);
+}
+
+#searchButton {
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+#mapCard, #historyCard {
+    width: 30%;
+    height: 85%;
+    overflow: hidden;
+}
+
+#vehicleCard {
+    width: 96%;
+    height: 85%;
+    overflow: hidden;
+}
+
+.cardHeader {
+    font-size: 1.5em;
+    background-color: var(--secondary) !important;
+    color: var(--primary);
+}
+
+.map {
+    width: 100%;
+    height: 100%;    
+}
+
+.cardLoading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+}
+
+.card {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cardRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 45%;
+    width: 100%;
+    padding: 0%;
+} 
+
+.noSearches {
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary);
+    color: (0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.noSearchText {
+    font-size: 2em;
+    font-style: italic;
+    color: var(--quaternary);
+    opacity: 0.5;
+}
+
+.logo {
+    height: 20vh;
+    opacity: 0.5;
+}

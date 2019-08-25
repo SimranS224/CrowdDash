@@ -14,13 +14,16 @@ class App extends Component {
         }
     }
 
+    setIsSignedIn = (value, cb) => {
+        this.setState({ isSignedIn: value }, cb);
+    }
+
     render = () => {
         return (
             <div>
                 <Switch>
-                    <Route exact path='/login' render={() => <LoginView isSignedIn={this.state.isSignedIn}/>} />
-                    <Route exact path='/insurance' render={() => <InsuranceView isSignedIn={this.state.isSignedIn} />} />
-                    <Route exact path='/lawEnforcement' render={() => <LawEnforcementView isSignedIn={this.state.isSignedIn} />} />
+                    <Route exact path='/login' render={() => <LoginView isSignedIn={this.state.isSignedIn} setIsSignedIn={this.setIsSignedIn} />} />
+                    <Route exact path='/insurance' render={() => <InsuranceView isSignedIn={this.state.isSignedIn} setIsSignedIn={this.setIsSignedIn} />} />
                     <Route component={() => { return <Redirect exact to={'/login'} /> }} />
                 </Switch>
             </div>

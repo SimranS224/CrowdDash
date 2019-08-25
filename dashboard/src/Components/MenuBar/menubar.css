@@ -1,0 +1,43 @@
+#navbar {
+    background-color: var(--secondary) !important;
+    color: var(--quaternary) !important;
+    height: 9vh !important;
+    z-index: 10;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#searchButton, #search {
+    color: var(--primary);
+    width: 8vw;
+    font-size: 1.3em;
+}
+
+#searchButton {
+    color: var(--quaternary) !important;
+    border: 1px solid var(--quaternary) !important;
+}
+
+#searchform {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+}
+
+#title {
+    font-size: 1.7em;
+    color: var(--quaternary);
+    font-style: italic;
+}
+
+#searchbar {
+    width: 20vw;
+    background-color: var(--primary);
+    color: var(--tertiary) !important;
+    margin: 0 1vw 0 1vw !important;
+}
+
+#header {
+    color: var(--quaternary);
+    font-size: 1.8em;
+    font-style: bold;
+}

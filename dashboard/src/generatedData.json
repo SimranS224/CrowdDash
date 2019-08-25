@@ -1,0 +1,135 @@
+{
+    "profiles": [
+        {
+            "licensePlate": "LLD3JN",
+            "vehicle": "SUV",
+            "numViolations": 10,
+            "violations": [
+                {
+                    "type": "red-light",
+                    "location": {
+                        "lat": "43.656085",
+                        "lng": "-79.3823654"
+                    },
+                    "timestamp": "1566682828",
+                    "probability": "99"
+                },
+                {
+                    "type": "red-light",
+                    "location": {
+                        "lat": "43.642567",
+                        "lng": "-79.387054"
+                    },
+                    "timestamp": "1566672828",
+                    "probability": "32"
+                },
+                {
+                    "type": "collision",
+                    "location": {
+                        "lat": "43.616585",
+                        "lng": "-79.4128654"
+                    },
+                    "timestamp": "1566572828",
+                    "probability": "19"
+                },
+                {
+                    "type": "red-light",
+                    "location": {
+                        "lat": "43.656385",
+                        "lng": "-79.3823954"
+                    },
+                    "timestamp": "1566680828",
+                    "probability": "89"
+                },
+                {
+                    "type": "red-light",
+                    "location": {
+                        "lat": "43.656085",
+                        "lng": "-79.3823654"
+                    },
+                    "timestamp": "1566682828",
+                    "probability": "57"
+                },
+                {
+                    "type": "red-light",
+                    "location": {
+                        "lat": "43.657085",
+                        "lng": "-79.3853654"
+                    },
+                    "timestamp": "1566687828",
+                    "probability": "33"
+                },
+                {
+                    "type": "collision",
+                    "location": {
+                        "lat": "43.665072",
+                        "lng": "-79.329382"
+                    },
+                    "timestamp": "1566680028",
+                    "probability": "77"
+                },
+                {
+                    "type": "collision",
+                    "location": {
+                        "lat": "43.679834",
+                        "lng": "-79.479808"
+                    },
+                    "timestamp": "1566682828",
+                    "probability": "94"
+                },
+                {
+                    "type": "red-light",
+                    "location": {
+                        "lat": "43.657732",
+                        "lng": "-79.389759"
+                    },
+                    "timestamp": "1566682828",
+                    "probability": "92"
+                },
+                {
+                    "type": "red-light",
+                    "location": {
+                        "lat": "43.651522",
+                        "lng": "-79.360200"
+                    },
+                    "timestamp": "1566582828",
+                    "probability": "12"
+                }
+            ]
+        },
+        {
+            "licensePlate": "A4B0L2",
+            "vehicle": "car",
+            "numViolations": 3,
+            "violations": [
+                {
+                    "type": "collision",
+                    "location": {
+                        "lat": "43.703555",
+                        "lng": "-79.401788"
+                    },
+                    "timestamp": "1566680000",
+                    "probability": "99"
+                },
+                {
+                    "type": "collision",
+                    "location": {
+                        "lat": "43.65085",
+                        "lng": "-79.38254"
+                    },
+                    "timestamp": "15665800828",
+                    "probability": "90"
+                },
+                {
+                    "type": "collision",
+                    "location": {
+                        "lat": "43.656085",
+                        "lng": "-79.3823654"
+                    },
+                    "timestamp": "1566681828",
+                    "probability": "24"
+                }
+            ]
+        }
+    ]
+}
