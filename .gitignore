@@ -7,3 +7,5 @@ __pycache__/
 
 # Data folder
 data/
+
+node_modules/
