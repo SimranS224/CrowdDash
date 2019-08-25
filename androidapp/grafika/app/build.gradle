@@ -33,7 +33,13 @@ dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   testCompile 'junit:junit:4.12'
   compile 'com.android.support:appcompat-v7:28'
-  compile 'com.squareup.okhttp3:okhttp:3.3.1'
+  implementation 'com.squareup.okhttp3:okhttp:3.3.1'
+  compile project(':pocketsphinx-android-5prealpha-release')
   implementation 'com.android.support:design:28.0.0'
   implementation 'com.android.support:appcompat-v7:28.0.0'
 }
+
+
+ant.importBuild 'assets.xml'
+preBuild.dependsOn(list, checksum)
+clean.dependsOn(clean_assets)

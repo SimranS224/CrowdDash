@@ -16,18 +16,23 @@
 
 package com.android.grafika;
 
+import android.Manifest;
 import android.content.ContentResolver;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.opengl.GLES20;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
@@ -68,6 +73,11 @@ import java.util.Locale;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import edu.cmu.pocketsphinx.Assets;
+import edu.cmu.pocketsphinx.Hypothesis;
+import edu.cmu.pocketsphinx.RecognitionListener;
+import edu.cmu.pocketsphinx.SpeechRecognizer;
+import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -85,6 +95,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import static android.widget.Toast.makeText;
+
 
 /**
  * Demonstrates capturing video into a ring buffer.  When the "capture" button is clicked,
@@ -99,7 +111,7 @@ import android.widget.RelativeLayout;
  * our video encoder.
  */
 public class ContinuousCaptureActivity extends Activity implements SurfaceHolder.Callback,
-        SurfaceTexture.OnFrameAvailableListener {
+        SurfaceTexture.OnFrameAvailableListener, RecognitionListener {
     private static final String TAG = MainActivity.TAG;
 
     private static final int VIDEO_WIDTH = 1280;  // dimensions for 720p video
@@ -125,6 +137,23 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
 
     private MainHandler mHandler;
     private float mSecondsOfVideo;
+
+
+    /* We only need the keyphrase to start recognition, one menu with list of choices,
+   and one word that is required for method switchSearch - it will bring recognizer
+   back to listening for the keyphrase*/
+    private static final String KWS_SEARCH = "wakeup";
+    private static final String MENU_SEARCH = "menu";
+    /* Keyword we are looking for to activate recognition */
+    private static final String KEYPHRASE = "hey crowd dash";
+
+    /* Recognition object */
+    private SpeechRecognizer recognizer;
+
+
+    /* Used to handle permission request */
+    private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
+
 
     /**
      * Custom message handler for main UI thread.
@@ -231,7 +260,153 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         System.out.println(mOutputFile);
         mSecondsOfVideo = 0.0f;
         updateControls();
+
+
+        runRecognizerSetup();
+        // Check if user has given permission to record audio
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
+            return;
+        }
+
     }
+
+
+    private void runRecognizerSetup() {
+        // Recognizer initialization is a time-consuming and it involves IO,
+        // so we execute it in async task
+        new AsyncTask<Void, Void, Exception>() {
+            @Override
+            protected Exception doInBackground(Void... params) {
+                try {
+                    Assets assets = new Assets(ContinuousCaptureActivity.this);
+                    File assetDir = assets.syncAssets();
+                    setupRecognizer(assetDir);
+                } catch (IOException e) {
+                    return e;
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Exception result) {
+                if (result != null) {
+                    System.out.println(result.getMessage());
+                } else {
+                    switchSearch(KWS_SEARCH);
+                }
+            }
+        }.execute();
+    }
+
+    // initialize custom dictionary
+    private void setupRecognizer(File assetsDir) throws IOException {
+        recognizer = SpeechRecognizerSetup.defaultSetup()
+                .setAcousticModel(new File(assetsDir, "en-us-ptm"))
+                .setDictionary(new File(assetsDir, "cmudict-en-us.dict"))
+                // Disable this line if you don't want recognizer to save raw
+                // audio files to app's storage
+                //.setRawLogDir(assetsDir)
+                .getRecognizer();
+        recognizer.addListener(this);
+        // Create keyword-activation search.
+        recognizer.addKeyphraseSearch(KWS_SEARCH, KEYPHRASE);
+        // Create your custom grammar-based search
+        File menuGrammar = new File(assetsDir, "mymenu.gram");
+        recognizer.addGrammarSearch(MENU_SEARCH, menuGrammar);
+    }
+
+
+    // destroy recognizer objects on app exit
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (recognizer != null) {
+            recognizer.cancel();
+            recognizer.shutdown();
+        }
+    }
+
+    //swith between keyphrases on menu listening
+    @Override
+    public void onPartialResult(Hypothesis hypothesis) {
+        if (hypothesis == null)
+            return;
+        String text = hypothesis.getHypstr();
+        /*if (text.equals(KEYPHRASE))
+            switchSearch(MENU_SEARCH);
+        else {
+            System.out.println(hypothesis.getHypstr());
+        }*/
+        if (text.equals(KEYPHRASE)){
+            switchSearch(MENU_SEARCH);
+            makeText(getApplicationContext(), "hey Crowd Dash!", Toast.LENGTH_SHORT).show();
+        } else if (text.equals("i am an observer")) {
+            System.out.println("i am an observer!");
+            makeText(getApplicationContext(), "I am an observer!", Toast.LENGTH_SHORT).show();
+        } else if (text.equals("somebody crashed into me")) {
+            System.out.println("somebody crashed into me");
+            makeText(getApplicationContext(), "somebody crashed into me", Toast.LENGTH_SHORT).show();
+        } else {
+            System.out.println(hypothesis.getHypstr());
+        }
+    }
+
+    // Print out voice command when recognized as full sentence
+
+    @Override
+    public void onResult(Hypothesis hypothesis) {
+        if (hypothesis != null) {
+            System.out.println(hypothesis.getHypstr());
+        }
+    }
+    @Override
+    public void onBeginningOfSpeech() {
+    }
+
+    // Reset recognizer back to keyphrase listening, or listen to menu options after end of speech
+
+    @Override
+    public void onEndOfSpeech() {
+        if (!recognizer.getSearchName().equals(KWS_SEARCH))
+            switchSearch(KWS_SEARCH);
+    }
+
+
+    /*
+    This method will switch between continuous recognition of keyphrase, or recognition of
+     menu items with 10 seconds timeout.
+     */
+
+    private void switchSearch(String searchName) {
+        recognizer.stop();
+        if (searchName.equals(KWS_SEARCH))
+            recognizer.startListening(searchName);
+        else
+            recognizer.startListening(searchName, 10000);
+    }
+
+    @Override
+    public void onError(Exception error) {
+        System.out.println(error.getMessage());
+    }
+
+    /* If the 10 second timeout is finished, switch back to keyphrase recognition,
+    as no menu command was received */
+    @Override
+    public void onTimeout() {
+        switchSearch(KWS_SEARCH);
+    }
+
+
+
+
+
+
+
+
+
+
 
     @Override
     protected void onResume() {
@@ -664,7 +839,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         } else {
             str = getString(R.string.recordingFailed, status);
         }
-        Toast toast = Toast.makeText(this, str, Toast.LENGTH_SHORT);
+        Toast toast = makeText(this, str, Toast.LENGTH_SHORT);
         toast.show();
     }
 
@@ -747,7 +922,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (!PermissionHelper.hasCameraPermission(this)) {
-            Toast.makeText(this,
+            makeText(this,
                     "Camera permission is needed to run this application", Toast.LENGTH_LONG).show();
             PermissionHelper.launchPermissionSettings(this);
             finish();
