@@ -85,3 +85,22 @@
     height: 20vh;
     opacity: 0.5;
 }
+
+.reportsWrapper {
+    overflow-y: scroll;
+    height: 100%;
+    width: 70%;
+    display: flex;
+    margin: 5vh 15% 1vh 15%;
+    padding: 3vh 5% 0 5%;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.noSearchText {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    margin-top: 5vh;
+}

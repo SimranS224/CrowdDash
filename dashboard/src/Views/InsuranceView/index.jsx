@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Card } from 'react-bootstrap'
+import { Table } from 'react-bootstrap';
 import Loading from '../../Components/Loading';
 import MenuBar from "../../Components/MenuBar";
 import ViolationMap from "../../Components/ViolationMap";
 import ViolationHistory from "../../Components/ViolationHistory";
 import VehicleInfo from "../../Components/VehicleInfo";
-import Logo from "../../Assets/CrowdDashLogoCropped.png";
+import axios from "axios";
 
-// import RiskCalulations from "../../Components/RiskCalculations";
-// import { serverUrl } from "../../config";
+import { serverUrl } from "../../config";
 
 import "./insurance.css";
 
@@ -27,16 +27,31 @@ class InsuranceView extends Component {
             isSignUp: false,
             violations: undefined,
             profiles: undefined,
+            reports: [],
             selection: undefined,
         }
     }
 
     componentDidMount = async () => {
+        const endpoint = serverUrl + "/api/report/"
+        console.log(endpoint)
+        try {
+            const response = await fetch(endpoint);
+            const data = await response.json();
+            console.log(response)
+            this.setState({ reports: data.data })
+        } catch (err) {
+            this.handleError(err)
+        }
         const profiles = await require("../../generatedData");
         this.setState({ profiles: profiles.profiles })
         setTimeout(() => {
             this.setState({ isLoading: false })
-        }, 1000)
+        }, 100)
+    }
+
+    handleError = (err) => {
+        console.log("Error", err)
     }
 
     searchFor = (searchString) => {
@@ -65,12 +80,13 @@ class InsuranceView extends Component {
     }
 
     render = () => {
+        if (this.state.isLoading) return <Loading />
         if (this.state.selection) {
             console.log("props in insurance", this.props)
             return (
                 <div className="fullscreen dashboardBG">
                     {this.state.isLoading ? <Loading /> : null}
-                    <MenuBar showSearch={true} searchFor={this.searchFor} setIsSignedIn={this.props.setIsSignedIn} title={"Search By License Plate"}/>
+                    <MenuBar showSearch={true} searchFor={this.searchFor} setIsSignedIn={this.props.setIsSignedIn} title={"Search By License Plate"} />
                     <div className="cardRow">
                         <Card id="vehicleCard" onClick={() => this.openModal("history")} className="text-center card">
                             <Card.Header className="cardHeader">Vehicle Information</Card.Header>
@@ -96,15 +112,48 @@ class InsuranceView extends Component {
             return (
                 <div className="fullscreen dashboardBG">
                     {this.state.isLoading ? <Loading /> : null}
-                    <MenuBar showSearch={true} searchFor={this.searchFor} setIsSignedIn={this.props.setIsSignedIn} title={"Search By License Plate"}/>
-                    <div className="noSearches">
-                        <img src={Logo} alt="CrowdDash" className="logo" />
-                        <h1 className="noSearchText">{this.state.selection === false ? "No Logs found for that license plate" : "Search for a License Plate to See Logs"}</h1>
+                    <MenuBar showSearch={true} searchFor={this.searchFor} setIsSignedIn={this.props.setIsSignedIn} title={"Search By License Plate"} />
+                    <h2 className="noSearchText">Open Reports</h2>
+                    <div className="reportsWrapper">
+                        <Table responsive id="table">
+                            <thead className="headerRow">
+                                <tr>
+                                    <th className="tableheader">#</th>
+                                    <th className="tableheader">Report ID</th>
+                                    <th className="tableheader">Analysis Status</th>
+                                    <th className="tableheader">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody className="tableBody">
+                                {this.state.reports.map((report, i) => {
+                                    return (
+                                        <tr key={i} className="linkToViolation">
+                                            <td className="tabletext">{i + 1}</td>
+                                            <td className="tabletext">{report.reporter_id}</td>
+                                            <td className="tabletext">{report.analysis_complete ? "Complete" : "In Progress"}</td>
+                                            <td className="tabletext">{new Date(1000 * Number(report.timestamp)).toUTCString()}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </Table>
+
                     </div>
                 </div>
-            )
-
+            );
         }
+        // else {
+        //     return (
+        //         <div className="fullscreen dashboardBG">
+        //             {this.state.isLoading ? <Loading /> : null}
+        //             <MenuBar showSearch={true} searchFor={this.searchFor} setIsSignedIn={this.props.setIsSignedIn} title={"Search By License Plate"} />
+        //             <div className="noSearches">
+        //                 <img src={Logo} alt="CrowdDash" className="logo" />
+        //                 <h1 className="noSearchText">{"No Logs found for that license plate"}</h1>
+        //             </div>
+        //         </div>
+        //     )
+        // }
     }
 }
 
