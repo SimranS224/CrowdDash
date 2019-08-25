@@ -47,12 +47,7 @@ def report(report_id):
         db.session.add(report)
         db.session.commit()
 
-        return jsonify({
-            'message': 'Successfully created report.',
-            'data': {
-                'id': report.id
-            }
-        })
+        return jsonify(report.id)
 
     elif request.method == 'PUT':
         if 'video' not in request.files:
