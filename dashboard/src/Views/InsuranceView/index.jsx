@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import Modal from 'react-modal';
 import { Card } from 'react-bootstrap'
 import Loading from '../../Components/Loading';
@@ -50,7 +49,7 @@ class InsuranceView extends Component {
             }
         })
 
-        if (!found) this.setState({selection: false})
+        if (!found) this.setState({ selection: false })
     }
 
     createModal = () => {
@@ -66,14 +65,12 @@ class InsuranceView extends Component {
     }
 
     render = () => {
-        if (!this.props.isSignedIn) {
-            return <Redirect to="/login" />
-        } else if (this.state.selection) {
+        if (this.state.selection) {
             console.log("props in insurance", this.props)
             return (
                 <div className="fullscreen dashboardBG">
                     {this.state.isLoading ? <Loading /> : null}
-                    <MenuBar searchFor={this.searchFor} setIsSignedIn={this.props.setIsSignedIn}/>
+                    <MenuBar showSearch={true} searchFor={this.searchFor} setIsSignedIn={this.props.setIsSignedIn} title={"Search By License Plate"}/>
                     <div className="cardRow">
                         <Card id="vehicleCard" onClick={() => this.openModal("history")} className="text-center card">
                             <Card.Header className="cardHeader">Vehicle Information</Card.Header>
@@ -91,11 +88,6 @@ class InsuranceView extends Component {
                             <Card.Header className="cardHeader">Violation Locations</Card.Header>
                             <ViolationMap selection={this.state.selection} className="mapCard" />
                         </Card>
-
-                        <Card id="mapCard" onClick={() => this.openModal("map")} className="text-center card">
-                            <Card.Header className="cardHeader">Violation Locations</Card.Header>
-                            <ViolationMap selection={this.state.selection} className="mapCard" />
-                        </Card>
                     </div>
                     {this.createModal()}
                 </div>
@@ -104,7 +96,7 @@ class InsuranceView extends Component {
             return (
                 <div className="fullscreen dashboardBG">
                     {this.state.isLoading ? <Loading /> : null}
-                    <MenuBar searchFor={this.searchFor} />
+                    <MenuBar showSearch={true} searchFor={this.searchFor} setIsSignedIn={this.props.setIsSignedIn} title={"Search By License Plate"}/>
                     <div className="noSearches">
                         <img src={Logo} alt="CrowdDash" className="logo" />
                         <h1 className="noSearchText">{this.state.selection === false ? "No Logs found for that license plate" : "Search for a License Plate to See Logs"}</h1>

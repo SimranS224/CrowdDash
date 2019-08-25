@@ -2,7 +2,7 @@
 :root {
     --primary: #333333;
     --secondary: #2699FB;
-    --tertiary: #F2F9FF;
+    --tertiary: #D8EDFF;
     --quaternary: #FFFFFF;
 }
 
@@ -14,6 +14,11 @@ html {
     height: 100%;
     width: 100%;
     overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
 body {

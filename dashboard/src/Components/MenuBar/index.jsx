@@ -22,7 +22,7 @@ class MenuBar extends Component {
 
     signOut = () => {
         console.log("props", this.props)
-        this.props.setIsSignedIn(false)
+        this.props.setIsSignedIn(false, () => {window.location.href = "/login"})
     }
 
     render = () => {
@@ -35,12 +35,13 @@ class MenuBar extends Component {
 
                     </Nav>
                     <Nav className="mr-auto">
-                        <Button id="header" variant="submit">Searching By License Plate</Button>
+                        <Button id="header" variant="submit">{this.props.title}</Button>
                     </Nav>
-                    <Form inline id="searchform">
+                    {this.props.showSearch && <Form inline id="searchform">
                         <FormControl type="text" placeholder="License Plate" id="searchbar" className="mr-sm-5" onChange={this.onChange} />
                         <Button onClick={this.onSubmit} id="searchButton" variant="submit">Search</Button>
                     </Form>
+                    }
                 </Navbar>
             </div>
         )

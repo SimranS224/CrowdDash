@@ -64,7 +64,7 @@
 }
 
 #signInButton {
-    background: linear-gradient(90deg, var(--tertiary), var(--secondary));
+    background: var(--secondary);
     color: var(--primary);
     width: 25%;
 }
@@ -80,6 +80,25 @@
     font-style: italic;
     width: 80%;
 }
+
+#signInButton {
+    background: var(--secondary);
+    color: var(--primary);
+    width: 25%;
+}
+
+#usernameFormGroup, #passwordFormGroup {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+}
+
+#username, #password {
+    font-style: italic;
+    width: 80%;
+}
+
 
 .column {
     display: flex;

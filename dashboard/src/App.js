@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import LoginView from './Views/LoginView';
-import LawEnforcementView from "./Views/LawEnforcementView";
 import InsuranceView from "./Views/InsuranceView";
+import ViolationView from "./Views/ViolationView";
 
 import './App.css';
 
@@ -15,7 +15,9 @@ class App extends Component {
     }
 
     setIsSignedIn = (value, cb) => {
-        this.setState({ isSignedIn: value }, cb);
+        this.setState({ isSignedIn: value }, () => {
+            cb();
+        });
     }
 
     render = () => {
@@ -24,6 +26,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path='/login' render={() => <LoginView isSignedIn={this.state.isSignedIn} setIsSignedIn={this.setIsSignedIn} />} />
                     <Route exact path='/insurance' render={() => <InsuranceView isSignedIn={this.state.isSignedIn} setIsSignedIn={this.setIsSignedIn} />} />
+                    <Route exact path='/violation/:licensePlate/:violationID' render={props => <ViolationView isSignedIn={this.state.isSignedIn} setIsSignedIn={this.setIsSignedIn} params={props.match.params} />} />
                     <Route component={() => { return <Redirect exact to={'/login'} /> }} />
                 </Switch>
             </div>

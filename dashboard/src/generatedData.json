@@ -12,7 +12,8 @@
                         "lng": "-79.3823654"
                     },
                     "timestamp": "1566682828",
-                    "probability": "99"
+                    "probability": "99",
+                    "evidence": []
                 },
                 {
                     "type": "red-light",
@@ -21,7 +22,8 @@
                         "lng": "-79.387054"
                     },
                     "timestamp": "1566672828",
-                    "probability": "32"
+                    "probability": "32",
+                    "evidence": []
                 },
                 {
                     "type": "collision",
@@ -30,7 +32,8 @@
                         "lng": "-79.4128654"
                     },
                     "timestamp": "1566572828",
-                    "probability": "19"
+                    "probability": "19",
+                    "evidence": []
                 },
                 {
                     "type": "red-light",
@@ -39,7 +42,8 @@
                         "lng": "-79.3823954"
                     },
                     "timestamp": "1566680828",
-                    "probability": "89"
+                    "probability": "89",
+                    "evidence": []
                 },
                 {
                     "type": "red-light",
@@ -48,7 +52,8 @@
                         "lng": "-79.3823654"
                     },
                     "timestamp": "1566682828",
-                    "probability": "57"
+                    "probability": "57",
+                    "evidence": []
                 },
                 {
                     "type": "red-light",
@@ -57,7 +62,8 @@
                         "lng": "-79.3853654"
                     },
                     "timestamp": "1566687828",
-                    "probability": "33"
+                    "probability": "33",
+                    "evidence": []
                 },
                 {
                     "type": "collision",
@@ -66,7 +72,8 @@
                         "lng": "-79.329382"
                     },
                     "timestamp": "1566680028",
-                    "probability": "77"
+                    "probability": "77",
+                    "evidence": []
                 },
                 {
                     "type": "collision",
@@ -75,7 +82,8 @@
                         "lng": "-79.479808"
                     },
                     "timestamp": "1566682828",
-                    "probability": "94"
+                    "probability": "94",
+                    "evidence": []
                 },
                 {
                     "type": "red-light",
@@ -84,7 +92,8 @@
                         "lng": "-79.389759"
                     },
                     "timestamp": "1566682828",
-                    "probability": "92"
+                    "probability": "92",
+                    "evidence": []
                 },
                 {
                     "type": "red-light",
@@ -93,23 +102,32 @@
                         "lng": "-79.360200"
                     },
                     "timestamp": "1566582828",
-                    "probability": "12"
+                    "probability": "12",
+                    "evidence": []
                 }
             ]
         },
         {
-            "licensePlate": "A4B0L2",
+            "licensePlate": "HHK9541",
             "vehicle": "car",
             "numViolations": 3,
             "violations": [
-                {
+                {   
+                    "violationID": "HHK95411566680000",
                     "type": "collision",
                     "location": {
                         "lat": "43.703555",
                         "lng": "-79.401788"
                     },
                     "timestamp": "1566680000",
-                    "probability": "99"
+                    "probability": "99",
+                    "evidence": [
+                        "https://i.imgur.com/dBecqxq.png",
+                        "https://i.imgur.com/mSXr1a9.png",
+                        "https://i.imgur.com/trvwqiu.png",
+                        "https://i.imgur.com/iNiUQiJ.png",
+                        "https://i.imgur.com/xcJAYb6.png"
+                    ]
                 },
                 {
                     "type": "collision",
@@ -118,7 +136,9 @@
                         "lng": "-79.38254"
                     },
                     "timestamp": "15665800828",
-                    "probability": "90"
+                    "probability": "90",
+                    "evidence": []
+
                 },
                 {
                     "type": "collision",
@@ -127,7 +147,9 @@
                         "lng": "-79.3823654"
                     },
                     "timestamp": "1566681828",
-                    "probability": "24"
+                    "probability": "24",
+                    "evidence": []
+
                 }
             ]
         }

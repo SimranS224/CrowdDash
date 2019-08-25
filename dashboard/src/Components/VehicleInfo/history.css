@@ -5,19 +5,26 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    background-color: var(--primary);
+    color: var(--tertiary);    
 }
 
-.infoBlock {
+.aDifferentInfoBlock {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    height: 50%;
+    width: 20%;
+    background-color: rgba(35, 35, 35, 1) !important;
+    /* background-color: var(--primary) !important; */
+    color: var(--tertiary) !important;
 }
 
-.field {
+.notfield {
     font-size: 1.5em;
 }
 
-.content {
+.notcontent {
     font-size: 2.7em;
 }

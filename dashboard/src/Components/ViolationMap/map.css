@@ -1,5 +1,5 @@
-.loadingBG {
-    background-color: var(--secondary);
+.cardLoading {
+    background-color: var(--primary);
     color: var(--primary);
     display: flex;
     flex-direction: column;

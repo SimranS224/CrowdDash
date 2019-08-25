@@ -43,27 +43,36 @@ export class History extends Component {
         }
     }
 
+    handleMarkerClick = (violation) => {
+        if (violation.violationID && violation.evidence.length > 0) {
+            window.location.href = `/violation/${this.props.selection.licensePlate}/${violation.violationID}`
+        } else {
+            console.log("violation", violation.location)
+        }
+    }
+
     render = () => {
         if (this.state.isLoading) return <div className="cardLoading">Loading...</div>
         return (
             <Table responsive id="table">
-                <thead>
+                <thead className="headerRow">
                     <tr>
-                        <th>#</th>
-                        <th>Violation Type</th>
-                        <th>Date</th>
-                        <th>Probability</th>
+                        <th className="tableheader">#</th>
+                        <th className="tableheader">Violation Type</th>
+                        <th className="tableheader">Date</th>
+                        <th className="tableheader">Confidence of Occurence</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="tableBody">
                     {this.state.violations.map((violation, i) => {
-                        return <tr key={i}>
-                            <td>{i + 1}</td>
-                            <td>{violationString[violation.type]}</td>
-                            <td>{this.toDateString(violation.timestamp)}</td>
-                            <td>{violation.probability}%</td>
-                        </tr>
-
+                        return (
+                            <tr key={i} className="linkToViolation" onClick={() => this.handleMarkerClick(violation)}>
+                                <td className="tabletext">{i + 1}</td>
+                                <td className="tabletext">{violationString[violation.type]}</td>
+                                <td className="tabletext">{this.toDateString(violation.timestamp)}</td>
+                                <td className="tabletext">{violation.probability}%</td>
+                            </tr>
+                        )
                     })}
                 </tbody>
             </Table>

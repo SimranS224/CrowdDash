@@ -44,21 +44,21 @@ export class VehicleInfo extends Component {
         if (this.state.isLoading) return <div className="cardLoading">Loading...</div>
         return (
             <div id="container">
-                <div className="infoBlock">
-                    <h2 className="field">Vehicle:</h2>
-                    <h2 className="content">{vehicleToString[this.props.selection.vehicle]}</h2>
+                <div className="aDifferentInfoBlock">
+                    <h2 className="notfield">Vehicle:</h2>
+                    <h2 className="notcontent">{vehicleToString[this.props.selection.vehicle]}</h2>
                 </div>
-                <div className="infoBlock">
-                    <h2 className="field">License Plate:</h2>
-                    <h2 className="content">{this.props.selection.licensePlate}</h2>
+                <div className="aDifferentInfoBlock">
+                    <h2 className="notfield">License Plate:</h2>
+                    <h2 className="notcontent">{this.props.selection.licensePlate}</h2>
                 </div>
-                <div className="infoBlock">
-                    <h2 className="field">Number Of Violation:</h2>
-                    <h2 className="content">{this.props.selection.numViolations}</h2>
+                <div className="aDifferentInfoBlock">
+                    <h2 className="notfield">Number Of Violation:</h2>
+                    <h2 className="notcontent">{this.props.selection.numViolations}</h2>
                 </div>
-                <div className="infoBlock">
-                    <h2 className="field">Most Recent Violation:</h2>
-                    <h2 className="content">{this.getLatestDate()}</h2>
+                <div className="aDifferentInfoBlock">
+                    <h2 className="notfield">Most Recent Violation:</h2>
+                    <h2 className="notcontent">{this.getLatestDate()}</h2>
                 </div>
             </div>
         );

@@ -7,14 +7,68 @@ const GMAPSAPI = "AIzaSyDWr-o2geOZx5XESJBxJ2tsD9DTWjpKJwA";
 
 const style = [
     {
-        "featureType": "water",
-        "elementType": "geometry",
+        "featureType": "all",
+        "elementType": "labels.text.fill",
         "stylers": [
             {
-                "color": "#e9e9e9"
+                "saturation": 36
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 40
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
             },
             {
                 "lightness": 17
+            },
+            {
+                "weight": 1.2
             }
         ]
     },
@@ -23,10 +77,22 @@ const style = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#f5f5f5"
+                "color": "#000000"
             },
             {
                 "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 21
             }
         ]
     },
@@ -35,7 +101,7 @@ const style = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#000000"
             },
             {
                 "lightness": 17
@@ -47,7 +113,7 @@ const style = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#000000"
             },
             {
                 "lightness": 29
@@ -62,7 +128,7 @@ const style = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#000000"
             },
             {
                 "lightness": 18
@@ -74,70 +140,10 @@ const style = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#000000"
             },
             {
                 "lightness": 16
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#f5f5f5"
-            },
-            {
-                "lightness": 21
-            }
-        ]
-    },
-    {
-        "featureType": "poi.park",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "color": "#dedede"
-            },
-            {
-                "lightness": 21
-            }
-        ]
-    },
-    {
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "color": "#ffffff"
-            },
-            {
-                "lightness": 16
-            }
-        ]
-    },
-    {
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "saturation": 36
-            },
-            {
-                "color": "#333333"
-            },
-            {
-                "lightness": 40
-            }
-        ]
-    },
-    {
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
             }
         ]
     },
@@ -146,7 +152,7 @@ const style = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#f2f2f2"
+                "color": "#000000"
             },
             {
                 "lightness": 19
@@ -154,37 +160,199 @@ const style = [
         ]
     },
     {
-        "featureType": "administrative",
-        "elementType": "geometry.fill",
+        "featureType": "water",
+        "elementType": "geometry",
         "stylers": [
             {
-                "color": "#fefefe"
-            },
-            {
-                "lightness": 20
-            }
-        ]
-    },
-    {
-        "featureType": "administrative",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#fefefe"
+                "color": "#000000"
             },
             {
                 "lightness": 17
-            },
-            {
-                "weight": 1.2
             }
         ]
     }
 ]
+// const style = [
+//     {
+//         "featureType": "water",
+//         "elementType": "geometry",
+//         "stylers": [
+//             {
+//                 "color": "#e9e9e9"
+//             },
+//             {
+//                 "lightness": 17
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "landscape",
+//         "elementType": "geometry",
+//         "stylers": [
+//             {
+//                 "color": "#f5f5f5"
+//             },
+//             {
+//                 "lightness": 20
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "road.highway",
+//         "elementType": "geometry.fill",
+//         "stylers": [
+//             {
+//                 "color": "#ffffff"
+//             },
+//             {
+//                 "lightness": 17
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "road.highway",
+//         "elementType": "geometry.stroke",
+//         "stylers": [
+//             {
+//                 "color": "#ffffff"
+//             },
+//             {
+//                 "lightness": 29
+//             },
+//             {
+//                 "weight": 0.2
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "road.arterial",
+//         "elementType": "geometry",
+//         "stylers": [
+//             {
+//                 "color": "#ffffff"
+//             },
+//             {
+//                 "lightness": 18
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "road.local",
+//         "elementType": "geometry",
+//         "stylers": [
+//             {
+//                 "color": "#ffffff"
+//             },
+//             {
+//                 "lightness": 16
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "poi",
+//         "elementType": "geometry",
+//         "stylers": [
+//             {
+//                 "color": "#f5f5f5"
+//             },
+//             {
+//                 "lightness": 21
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "poi.park",
+//         "elementType": "geometry",
+//         "stylers": [
+//             {
+//                 "color": "#dedede"
+//             },
+//             {
+//                 "lightness": 21
+//             }
+//         ]
+//     },
+//     {
+//         "elementType": "labels.text.stroke",
+//         "stylers": [
+//             {
+//                 "visibility": "on"
+//             },
+//             {
+//                 "color": "#ffffff"
+//             },
+//             {
+//                 "lightness": 16
+//             }
+//         ]
+//     },
+//     {
+//         "elementType": "labels.text.fill",
+//         "stylers": [
+//             {
+//                 "saturation": 36
+//             },
+//             {
+//                 "color": "#333333"
+//             },
+//             {
+//                 "lightness": 40
+//             }
+//         ]
+//     },
+//     {
+//         "elementType": "labels.icon",
+//         "stylers": [
+//             {
+//                 "visibility": "off"
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "transit",
+//         "elementType": "geometry",
+//         "stylers": [
+//             {
+//                 "color": "#f2f2f2"
+//             },
+//             {
+//                 "lightness": 19
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "administrative",
+//         "elementType": "geometry.fill",
+//         "stylers": [
+//             {
+//                 "color": "#fefefe"
+//             },
+//             {
+//                 "lightness": 20
+//             }
+//         ]
+//     },
+//     {
+//         "featureType": "administrative",
+//         "elementType": "geometry.stroke",
+//         "stylers": [
+//             {
+//                 "color": "#fefefe"
+//             },
+//             {
+//                 "lightness": 17
+//             },
+//             {
+//                 "weight": 1.2
+//             }
+//         ]
+//     }
+// ]
 
 const mapStyles = {
     width: '100%',
-    height: '100%'
+    height: '100%',
+    disableDefaultUI: true,
 }
 
 export class MapContainer extends Component {
@@ -209,8 +377,7 @@ export class MapContainer extends Component {
     }
 
     updateMarkers = async () => {
-        const locations = Object.values(this.props.selection.violations).map(a => a.location)
-        console.log("locs", locations)
+        const locations = Object.values(this.props.selection.violations)
         this.setState({ stores: locations, isLoading: false })
     }
 
@@ -229,16 +396,24 @@ export class MapContainer extends Component {
         }
     }
 
+    handleMarkerClick = (violation) => {
+        if (violation.violationID && violation.evidence.length > 0) {
+            window.location.href = `/violation/${this.props.selection.licensePlate}/${violation.violationID}`
+        } else {
+            console.log("violation", violation.location)
+        }
+    }
+
 
     displayMarkers = () => {
         console.log("displaying markers", this.state.selection);
         return this.state.stores.map((store, index) => {
             console.log("store", store)
             return <Marker key={index} id={index} position={{
-                lat: store.lat,
-                lng: store.lng
+                lat: store.location.lat,
+                lng: store.location.lng
             }}
-                onClick={() => { console.log(store) }} />
+                onClick={() => this.handleMarkerClick(store)} />
         })
     }
 
@@ -251,6 +426,7 @@ export class MapContainer extends Component {
     // }
 
     render = () => {
+        console.log("center", this.props.center)
         if (this.state.isLoading) return <div className="cardLoading">Loading...</div>
         return (
             <Map
@@ -260,12 +436,15 @@ export class MapContainer extends Component {
                 style={mapStyles}
                 styles={style}
                 initialCenter={{ lat: this.state.lat, lng: this.state.lng }}
-                defaultOptions={{
+                disableDefaultUI={true}
+                options={{
                     styles: style,
                     FullscreenControl: false,
                     panControl: false,
                     mapTypeControl: false,
-                    scrollwheel: false
+                    scrollwheel: false,
+                    streetViewControl: false,
+                    disableDefaultUI: true,
                 }}            >
                 {this.displayMarkers()}
                 {/* {this.displayCenter()} */}
