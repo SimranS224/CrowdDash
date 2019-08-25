@@ -38,7 +38,7 @@ class InsuranceView extends Component {
         try {
             const response = await fetch(endpoint);
             const data = await response.json();
-            console.log(response)
+            console.log(data)
             this.setState({ reports: data.data })
         } catch (err) {
             this.handleError(err)
