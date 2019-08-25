@@ -614,6 +614,10 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         // Give the camera a hint that we're recording video.  This can have a big
         // impact on frame rate.
         parms.setRecordingHint(true);
+        if (parms.getSupportedFocusModes().contains(
+                Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+            parms.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+        }
 
         mCamera.setParameters(parms);
 
