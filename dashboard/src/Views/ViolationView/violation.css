@@ -1,0 +1,135 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.dashboardBG {
+    background-color: var(--primary);
+    color: var(--quaternary);
+}
+#navbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#searchButton {
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+#mapCard, #historyCard {
+    width: 46%;
+    height: 85%;
+    overflow: hidden;
+}
+
+#mapCard, #historyCard, #vehicleCard {
+    border: 1px solid var(--secondary) !important;
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
+}
+
+.historyCard {
+    color: var(--secondary) !important;
+}
+
+.cardHeader {
+    font-size: 1.5em;
+    background-color: var(--secondary) !important;
+    color: var(--quaternary);
+}
+
+.map {
+    width: 100%;
+    height: 100%;    
+}
+
+.cardLoading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+}
+
+.card {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cardRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 45%;
+    width: 100%;
+    padding: 0%;
+} 
+
+.noSearches {
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary);
+    color: (0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.noSearchText {
+    font-size: 2em;
+    font-style: italic;
+    color: var(--quaternary);
+    opacity: 0.5;
+}
+
+.logo {
+    height: 20vh;
+    opacity: 0.5;
+}
+
+.violation {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.violationInfoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.infoBlock {
+    padding: 2vh 1vw 2vh 1vw;
+}
+
+.field {
+    font-size: 1.5em;
+    color: var(--secondary);
+}
+.content {
+    font-size: 1.5em;
+    color: var(--quaternary);
+}
+
+.ImageGallery {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.imageGalleryContainer {
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+}
+
+#topRow {
+    height: 55%;
+}
+
+#bottomRow {
+    height: 35%;
+}

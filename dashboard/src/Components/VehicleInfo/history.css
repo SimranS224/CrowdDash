@@ -1,0 +1,30 @@
+#container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--primary);
+    color: var(--tertiary);    
+}
+
+.aDifferentInfoBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 50%;
+    width: 20%;
+    background-color: rgba(35, 35, 35, 1) !important;
+    /* background-color: var(--primary) !important; */
+    color: var(--tertiary) !important;
+}
+
+.notfield {
+    font-size: 1.5em;
+}
+
+.notcontent {
+    font-size: 2.7em;
+}

@@ -1,0 +1,136 @@
+* {
+    /* outline: 2px solid red !important; */
+}
+
+.loginBackground {
+    background-color: var(--secondary);
+    color: var(--quaternary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.loginTab {
+    background-color: var(--primary);
+    border-top-left-radius: 3vh;
+    border-top-right-radius: 3vh;
+    position: absolute;
+    height: 80vh;
+    width: 40vw;
+    top: 40vh;
+    left: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    animation-name: bottomToTop;
+    animation-duration: 1.5s;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.loginLogo {
+    position: absolute;
+    height: 55vh;
+    clip-path: polygon(0 22%, 100% 22%, 100% 82%, 0 82%);
+    top: -8vh;
+    animation-name: topToBottom;
+    animation-duration: 1.4s;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.loginHeader {
+    /* top: 10vh; */
+    /* position: absolute; */
+    font-size: 3.5em;
+    color: var(--secondary) !important;
+    margin: 3vh 1vw 5vh 1vw;
+}
+
+.loginSubHeader {
+    font-size: 3.5em;
+    padding: 3vh 1vw 5vh 1vw;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    font-size: 1em;
+    width: 80%;
+}
+
+#signInButton {
+    background: var(--secondary);
+    color: var(--primary);
+    width: 25%;
+}
+
+#usernameFormGroup, #passwordFormGroup {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+}
+
+#username, #password {
+    font-style: italic;
+    width: 80%;
+}
+
+#signInButton {
+    background: var(--secondary);
+    color: var(--primary);
+    width: 25%;
+}
+
+#usernameFormGroup, #passwordFormGroup {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+}
+
+#username, #password {
+    font-style: italic;
+    width: 80%;
+}
+
+
+.column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+}
+
+.signupLink {
+    position: relative;
+    bottom: -15vh;
+    cursor: pointer;
+}
+
+@keyframes bottomToTop {
+    from {
+        top: 100vh
+    }
+    ;
+    to {
+        top: 40vh
+    }
+    ;
+}
+
+@keyframes topToBottom {
+    from {
+        top: -100vh
+    }
+    ;
+    to {
+        top: -8vh;
+    }
+    ;
+}
