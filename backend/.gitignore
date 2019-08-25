@@ -1,0 +1,8 @@
+# Python
+pyenv/
+../pyenv/
+# SQLite
+db.sqlite
+
+# Uploads folder
+uploads/

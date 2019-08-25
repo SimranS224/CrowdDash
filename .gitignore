@@ -11,3 +11,12 @@
 /build
 /captures
 .externalNativeBuild
+# VSCode
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+
+# Data folder
+data/
