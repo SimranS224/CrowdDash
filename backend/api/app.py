@@ -14,4 +14,5 @@ migrate = Migrate(app, db)
 
 app.config['BASE_DIR'] = BASE_DIR
 app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'uploads')
+app.config['MEDIA_FOLDER'] = os.path.join(BASE_DIR, 'media')
 app.config['ALLOWED_EXTENSIONS'] = ['mp4']

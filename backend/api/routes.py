@@ -6,8 +6,9 @@ from flask import jsonify, request, Response, send_from_directory, abort
 
 from api.app import app, db
 from api import utils
-from api.models import Report, Video
+from api.models import Report, Video, Image
 from api.io import VideoIO
+from api.analysis import pipelines
 
 
 @app.route('/api/report/', methods=['GET', 'POST'], defaults={'report_id': None})
@@ -39,6 +40,7 @@ def report(report_id):
             }), 422
 
         report = Report(data['user_id'],
+                        data['report_type'],
                         data['timestamp'],
                         data['location']['longitude'],
                         data['location']['latitude'])
@@ -82,6 +84,11 @@ def report(report_id):
             report.video_id = video.id
             db.session.commit()
 
+            if report.report_type == 'hit':
+                pipelines.hit(report, abs_fpath)
+            elif report.report_type == 'witness':
+                pipelines.witness(report, abs_fpath)
+
             return jsonify({'message': 'Successfully uploaded video.'})
 
     elif request.method == 'DELETE':
@@ -100,6 +107,17 @@ def get_video(video_id):
     
     try:
         return send_from_directory(os.path.dirname(video_path), filename=os.path.basename(video_path), as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
+
+
+@app.route('/image/<image_id>')
+def get_image(image_id):
+    image = Image.query.filter_by(id=image_id).first()
+    image_path = os.path.join(app.config['BASE_DIR'], image.path)
+    
+    try:
+        return send_from_directory(os.path.dirname(image_path), filename=os.path.basename(image_path), as_attachment=True)
     except FileNotFoundError:
         abort(404)
 
