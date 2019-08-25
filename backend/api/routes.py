@@ -6,7 +6,7 @@ from flask import jsonify, request, Response, send_from_directory, abort
 
 from api.app import app, db
 from api import utils
-from api.models import Report, Video, Image
+from api.models import Report, Video, Image, Profile
 from api.io import VideoIO
 from api.analysis import pipelines
 
@@ -27,10 +27,10 @@ def report(report_id):
                 'data': reports
             })
         else:
-            report = Report.query.filter_by(id=report_id).first()
+            reports = Report.query.filter_by(id=report_id).first()
 
             return jsonify({
-                'data': report.to_dict()
+                'data': reports.to_dict()
             })
 
     elif request.method == 'POST':
@@ -106,6 +106,35 @@ def report(report_id):
         })
 
 
+@app.route('/api/profile/', methods=['GET', 'POST'], defaults={"profile_id": None})
+@app.route('/api/profile/<profile_id>', methods=['GET'])
+def profile(profile_id):
+    if request.method == 'GET':
+        if profile_id is None:
+            license_plate = request.args.get('license_plate')
+
+            print(license_plate)
+            if license_plate is not None:
+                profile_ = Profile.query.filter_by(license_plate=license_plate).first()
+                profile_ = profile_.to_dict()
+                return jsonify({
+                    'data': profile_
+                })
+            else:
+                profiles = Profile.query.all()
+                profiles = [p.to_dict() for p in profiles]
+
+                return jsonify({
+                    'data': profiles
+                })
+        else:
+            profiles = Profile.query.filter_by(id=profile_id).first()
+            
+            return jsonify({
+                'data': profiles.to_dict()
+            })
+
+
 @app.route('/video/<video_id>')
 def get_video(video_id):
     video = Video.query.filter_by(id=video_id).first()
@@ -147,46 +176,3 @@ def stream_video(video_id):
     video_io = VideoIO(video_path)
     return Response(video_generator(video_io),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-
-@app.route('/aws/recog/', methods=['POST'])
-def send_photo_to_aws():
-    print("here")
-    bucket='bucket'
-    # photo= 'photo'
-    imageFile= './api/plate.png'
-    client=boto3.client('rekognition')
-   
-    with open(imageFile, 'rb') as image:
-        response = client.detect_text(Image={'Bytes': image.read()})
-        
-    print('Detected labels in ' + imageFile)    
-    textDetections=response['TextDetections']
-    print ('Detected text')
-    for text in textDetections:
-            print ('Detected text:' + text['DetectedText'])
-            print ('Confidence: ' + "{:.2f}".format(text['Confidence']) + "%")
-            print ('Id: {}'.format(text['Id']))
-            if 'ParentId' in text:
-                print ('Parent Id: {}'.format(text['ParentId']))
-            print ('Type:' + text['Type'])
-    return str(textDetections)
-
-
-    # for label in response['Labels']:
-    #     print (label['Name'] + ' : ' + str(label['Confidence']))
-
-    # print('Done...')
-
-    # client=boto3.client('rekognition')
-    # response=client.detect_text(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
-                        
-    # textDetections=response['TextDetections']
-    # print ('Detected text')
-    # for text in textDetections:
-    #         print ('Detected text:' + text['DetectedText'])
-    #         print ('Confidence: ' + "{:.2f}".format(text['Confidence']) + "%")
-    #         print ('Id: {}'.format(text['Id']))
-    #         if 'ParentId' in text:
-    #             print ('Parent Id: {}'.format(text['ParentId']))
-    #         print ('Type:' + text['Type'])
-    #         print

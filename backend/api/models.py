@@ -64,9 +64,12 @@ class Report(db.Model):
     images = db.relationship('Image', backref='report')
     analysis_complete = db.Column(db.Boolean, default=False)
     car_color = db.Column(db.String)
+    probability = db.Column(db.Integer)
+    profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
 
     def __init__(self, reporter_id, report_type, timestamp, 
-                 longitude, latitude, analysis_complete=False, video_id=None):
+                 longitude, latitude, analysis_complete=False, 
+                 video_id=None):
         self.reporter_id = reporter_id
         self.report_type = report_type
         self.timestamp = timestamp
@@ -99,16 +102,35 @@ class Report(db.Model):
     def to_dict(self):
         obj = {}
 
+        obj['id'] = self.id
         obj['reporter_id'] = self.reporter_id
         obj['timestamp'] = self.timestamp
         obj['location'] = {
-            'longitude': self.longitude,
-            'latitude': self.latitude
+            'lat': self.longitude,
+            'lng': self.latitude
         }
         obj['video_url'] = self.video.url if self.video is not None else ''
         obj['image_urls'] = [image.url for image in self.images]
         obj['analysis_complete'] = self.analysis_complete
         obj['car_color'] = self.car_color if self.car_color is not None else ''
         obj['description'] = self.description if self.description is not None else ''
+        obj['probability'] = self.probability
+
+        return obj
+
+
+class Profile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    license_plate = db.Column(db.String, unique=True)
+    vehicle = db.Column(db.String)
+    reports = db.relationship('Report', backref='profile')
+
+    def to_dict(self):
+        obj = {}
+
+        obj['id'] = self.id
+        obj['license_plate'] = self.license_plate
+        obj['vehicle'] = self.vehicle
+        obj['reports'] = [r.to_dict() for r in self.reports]
 
         return obj
