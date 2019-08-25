@@ -78,6 +78,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSink;
 import okio.Okio;
+import android.graphics.Color;
+import android.support.design.widget.BottomNavigationView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
 
 /**
  * Demonstrates capturing video into a ring buffer.  When the "capture" button is clicked,
@@ -200,8 +207,10 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_continuous_capture);
+        super.onCreate(savedInstanceState);
+        RelativeLayout currentLayout = (RelativeLayout) findViewById(R.id.main_layout);
+        currentLayout.setBackgroundColor(getResources().getColor(R.color.white));
 
         SurfaceView sv = (SurfaceView) findViewById(R.id.continuousCapture_surfaceView);
         SurfaceHolder sh = sv.getHolder();
@@ -351,9 +360,9 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
      * Updates the current state of the controls.
      */
     private void updateControls() {
-        String str = getString(R.string.secondsOfVideo, mSecondsOfVideo);
-        TextView tv = (TextView) findViewById(R.id.capturedVideoDesc_text);
-        tv.setText(str);
+//        String str = getString(R.string.secondsOfVideo, mSecondsOfVideo);
+//        TextView tv = (TextView) findViewById(R.id.capturedVideoDesc_text);
+//        tv.setText(str);
 
         boolean wantEnabled = (mCircEncoder != null) && !mFileSaveInProgress;
         Button button = (Button) findViewById(R.id.capture_button);
