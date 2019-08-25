@@ -2,13 +2,13 @@ import cv2
 
 from api.app import db
 from api.io import VideoIO
-from api.analysis import detection, color
+from api.analysis import detection, color, utils
 from api.models import Image
 
 
 def hit(report, video_path):
     print('Getting detections...')
-    frame_detections = detection.get_frame_detections(video_path)
+    frame_detections, last_frame = detection.get_frame_detections(video_path)
     
     print('Finding nested detections...')
     # Get a list of nested detection pairs by bounding box
@@ -37,16 +37,39 @@ def hit(report, video_path):
     report.images.append(accident_img)
     db.session.commit()
 
-    print('Completed hit analysis...')
+    print('Reporting analysis...')
     report.analysis_complete = True
     report.car_color = color.rgb_to_hex(*color.dominant_color(car_det.img))
     db.session.commit()
+    
+    print('Completed analysis...')
 
     return True
 
 
-def witness(video_path):
-    frame_detections = detections.get_frame_detections(video_path)
+def witness(report, video_path):
+    print('Getting detections...')
+    frame_detections, last_frame = detection.get_frame_detections(video_path)
 
+    print('Getting colliders...')
     colliders = sorted(frame_detections[-1], key=lambda x: x.area, reverse=True)[:2]
     
+    print('Getting surrounding bbox...')
+    surr_bbox = utils.get_surrounding_box(colliders[0].bbox, colliders[1].bbox)
+    surr_crop = last_frame[surr_bbox[1]:surr_bbox[1]+surr_bbox[3], surr_bbox[0]:surr_bbox[0]+surr_bbox[2], :]
+
+    print('Saving images...')
+    car1_img = Image.from_arr(colliders[0].img, report.id)
+    car2_img = Image.from_arr(colliders[1].img, report.id)
+    accident_img = Image.from_arr(last_frame, report.id)
+    surr_img = Image.from_arr(surr_crop, report.id)
+
+    report.images.append(car1_img)
+    report.images.append(car2_img)
+    report.images.append(accident_img)
+    report.images.append(surr_img)
+
+    report.analysis_complete = True
+    db.session.commit()
+    print('Completed analysis...')
+    return True

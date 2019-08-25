@@ -1,4 +1,5 @@
 import cv2
+import ffmpeg
 
 from api.analysis import utils
 from api.io import VideoIO
@@ -34,6 +35,24 @@ class Detection():
 
 
 def get_frame_detections(video_path, detect_interval=DETECT_INTERVAL):
+    def check_rotation(path_video_file):
+        # this returns meta-data of the video file in form of a dictionary
+        meta_dict = ffmpeg.probe(path_video_file)
+
+        # from the dictionary, meta_dict['streams'][0]['tags']['rotate'] is the key
+        # we are looking for
+        rotateCode = None
+        if int(meta_dict['streams'][0]['tags']['rotate']) == 90:
+            rotateCode = cv2.ROTATE_90_CLOCKWISE
+        elif int(meta_dict['streams'][0]['tags']['rotate']) == 180:
+            rotateCode = cv2.ROTATE_180
+        elif int(meta_dict['streams'][0]['tags']['rotate']) == 270:
+            rotateCode = cv2.ROTATE_90_COUNTERCLOCKWISE
+
+        return rotateCode
+
+    rotate_code = check_rotation(video_path)
+
     # Load video
     vid = VideoIO(video_path)
     # Init Rekognition service
@@ -45,13 +64,17 @@ def get_frame_detections(video_path, detect_interval=DETECT_INTERVAL):
     h, w = None, None
     while(True):
         # Get next frame
-        frame = vid.next_frame()
+        next_frame = vid.next_frame()
         # Break when the video is over
-        if frame is None:
+        if next_frame is None:
             break
+        frame = next_frame
         if h is None or w is None:
             h, w = frame.shape[:2]
         
+        if rotate_code is not None:
+            frame = cv2.rotate(frame, rotate_code)
+
         # Convert from BGR to RGB
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         
@@ -87,7 +110,7 @@ def get_frame_detections(video_path, detect_interval=DETECT_INTERVAL):
     # Close video
     vid.close()
 
-    return frame_detections
+    return frame_detections, frame
 
 
 def find_nested_detections(frame_detections):
