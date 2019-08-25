@@ -2,7 +2,7 @@ import cv2
 
 from api.app import db
 from api.io import VideoIO
-from api.analysis import detection
+from api.analysis import detection, color
 from api.models import Image
 
 
@@ -39,6 +39,7 @@ def hit(report, video_path):
 
     print('Completed hit analysis...')
     report.analysis_complete = True
+    report.car_color = color.rgb_to_hex(*color.dominant_color(car_det.img))
     db.session.commit()
 
     return True

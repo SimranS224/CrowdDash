@@ -63,6 +63,7 @@ class Report(db.Model):
     video = db.relationship('Video', backref='report', uselist=False)
     images = db.relationship('Image', backref='report')
     analysis_complete = db.Column(db.Boolean, default=False)
+    car_color = db.Column(db.String)
 
     def __init__(self, reporter_id, report_type, timestamp, 
                  longitude, latitude, analysis_complete=False, video_id=None):
@@ -107,5 +108,7 @@ class Report(db.Model):
         obj['video_url'] = self.video.url if self.video is not None else ''
         obj['image_urls'] = [image.url for image in self.images]
         obj['analysis_complete'] = self.analysis_complete
+        obj['car_color'] = self.car_color if self.car_color is not None else ''
+        obj['description'] = self.description if self.description is not None else ''
 
         return obj
