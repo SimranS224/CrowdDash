@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright 2013 Google Inc. All rights reserved.
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -150,5 +149,6 @@
     <string name="title_color_bar">RGB color bars</string>
     <string name="title_scheduled_swap">Scheduled swap</string>
     <string name="title_texture_from_camera">Texture from camera</string>
+    <string name="title_activity_profile">profile</string>
 
 </resources>

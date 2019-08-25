@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingTop="24dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/table"
+        android:layout_below="@+id/text"
+        android:paddingHorizontal="32dp"
+        android:layout_marginBottom="20dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Reports"
+                android:textColor="#2699FB"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="56"
+                android:textColor="#2699FB"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Good Citizen Score"
+                android:textColor="#2699FB"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="2310"
+                android:textColor="#2699FB"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Data"
+        android:layout_centerHorizontal="true"
+        android:textSize="24dip"
+        android:layout_marginBottom="16dp"
+        android:textColor="#2699FB"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/first_graph"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/charts_2"
+        android:layout_below="@id/table"
+        android:layout_marginBottom="32dp"
+
+
+        />
+
+    <ImageView
+        android:layout_marginTop="32dp"
+        android:id="@+id/second_graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/charts_1"
+        android:layout_below="@id/first_graph"
+        android:layout_centerHorizontal="true"
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:text="Continue to DashCam"
+        android:background="#2699FB"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="64dp"
+        android:onClick="moveToRecord"/>
+
+
+
+</RelativeLayout>

@@ -307,7 +307,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
                 System.out.println("mOutputFile");
                 System.out.println(mOutputFile);
 
-                String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\"hit\", \"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
+                String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\""+ report_type+ "\", \"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
                 try {
                     JSONObject jsonObject = new JSONObject(jsonString);
                     System.out.println("sending json object");
@@ -353,8 +353,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
                 mCircEncoder.saveVideo(mOutputFile);
                 System.out.println("mOutputFile");
                 System.out.println(mOutputFile);
-
-                String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\"hit\", \"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
+                String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\""+ report_type + "\", \"location\":{\"latitude\":\"43.6426\", \"longitude\":\"79.3871\"}}";
                 try {
                     JSONObject jsonObject = new JSONObject(jsonString);
                     System.out.println("sending json object");
@@ -899,7 +898,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         System.out.println("mOutputFile");
         System.out.println(mOutputFile);
 
-        String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\"hit\", \"location\":{\"latitude\":\"43.678222\", \"longitude\":\"-79.435355\"}}";
+        String jsonString = "{\"user_id\":\"1234\",\"timestamp\":\"1566627956445\", \"report_type\":\"hit\", \"location\":{\"latitude\":\"43.678222\", \"longitude\":\"79.3871\"}}";
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             System.out.println("sending json object");
