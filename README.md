@@ -16,3 +16,10 @@ $ source pyenv/bin/activate
 (pyenv) $ ./run run # for running the flask server
 (pyenv) $ ./run shell # for running the flask shell
 ```
+
+## Database Setup
+```
+// in backend/
+(pyenv) $ ./run db init
+(pyenv) $ ./refresh_db.sh
+```
