@@ -16,6 +16,7 @@
 
 package com.android.grafika;
 
+import android.graphics.Color;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.opengl.GLES20;
@@ -24,14 +25,19 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
@@ -169,8 +175,10 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_continuous_capture);
+        super.onCreate(savedInstanceState);
+        RelativeLayout currentLayout = (RelativeLayout) findViewById(R.id.main_layout);
+        currentLayout.setBackgroundColor(getResources().getColor(R.color.white));
 
         SurfaceView sv = (SurfaceView) findViewById(R.id.continuousCapture_surfaceView);
         SurfaceHolder sh = sv.getHolder();
@@ -182,6 +190,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         mOutputFile = new File(getFilesDir(), "continuous-capture.mp4");
         mSecondsOfVideo = 0.0f;
         updateControls();
+
     }
 
     @Override
@@ -311,9 +320,9 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
      * Updates the current state of the controls.
      */
     private void updateControls() {
-        String str = getString(R.string.secondsOfVideo, mSecondsOfVideo);
-        TextView tv = (TextView) findViewById(R.id.capturedVideoDesc_text);
-        tv.setText(str);
+        //String str = getString(R.string.secondsOfVideo, mSecondsOfVideo);
+        //TextView tv = (TextView) findViewById(R.id.capturedVideoDesc_text);
+        //tv.setText(str);
 
         boolean wantEnabled = (mCircEncoder != null) && !mFileSaveInProgress;
         Button button = (Button) findViewById(R.id.capture_button);

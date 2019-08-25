@@ -181,24 +181,24 @@ public class MainActivity extends ListActivity {
         startActivity(intent);
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
+    }*/
 
     /**
      * onClick handler for "about" menu item.
      */
-    public void clickAbout(@SuppressWarnings("unused") MenuItem unused) {
+   /* public void clickAbout(@SuppressWarnings("unused") MenuItem unused) {
         AboutBox.display(this);
-    }
+    }*/
 
     /**
      * onClick handler for "regenerate content" menu item.
      */
-    public void clickRegenerateContent(@SuppressWarnings("unused") MenuItem unused) {
+   /* public void clickRegenerateContent(@SuppressWarnings("unused") MenuItem unused) {
         ContentManager.getInstance().createAll(this);
-    }
+    }*/
 }
