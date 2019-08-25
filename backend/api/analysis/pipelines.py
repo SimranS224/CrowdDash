@@ -53,6 +53,8 @@ def witness(report, video_path):
 
     print('Getting colliders...')
     colliders = sorted(frame_detections[-1], key=lambda x: x.area, reverse=True)[:2]
+
+    print(len(colliders))
     
     print('Getting surrounding bbox...')
     surr_bbox = utils.get_surrounding_box(colliders[0].bbox, colliders[1].bbox)
