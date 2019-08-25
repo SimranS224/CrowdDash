@@ -92,3 +92,4 @@ app/.build/
 .idea/workspace.xml
 build/*
 !build/build.xml
+ app/build/intermediates/*
