@@ -154,7 +154,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
     private static final String KWS_SEARCH = "wakeup";
     private static final String MENU_SEARCH = "menu";
     /* Keyword we are looking for to activate recognition */
-    private static final String KEYPHRASE = "hey crowd dash";
+    private static final String KEYPHRASE = "hey dash";
 
     /* Recognition object */
     private SpeechRecognizer recognizer;
@@ -419,6 +419,7 @@ public class ContinuousCaptureActivity extends Activity implements SurfaceHolder
         // Create your custom grammar-based search
         File menuGrammar = new File(assetsDir, "mymenu.gram");
         recognizer.addGrammarSearch(MENU_SEARCH, menuGrammar);
+
     }
 
 

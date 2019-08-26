@@ -2,4 +2,4 @@
 
 grammar mymenu;
 
-public <smart> = (i am an observer| somebody crashed into me);
+public <smart> = (i am an observer| somebody hit me);
