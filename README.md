@@ -25,6 +25,10 @@ amazon-web-services | rekognition | flask | react | java | android-studio | sqla
 * [Kshitij Shah](https://github.com/KshitijShah-GitHub)
 * [Nicolae Strincea](https://github.com/nicolae-stroncea)
 * [Simran Singh](https://github.com/SimranS224)
+
+# Sample mobile design preview
+
+* [AdobeXdSample](https://xd.adobe.com/view/8b24a1e3-489f-4744-5d6e-dfd77727b0b8-fd15/)
     
 # Backend
 ## Setup
