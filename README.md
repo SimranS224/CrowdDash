@@ -28,7 +28,7 @@ amazon-web-services | rekognition | flask | react | java | android-studio | sqla
 
 # Sample mobile design preview
 
-* [AdobeXdSample](https://xd.adobe.com/view/8b24a1e3-489f-4744-5d6e-dfd77727b0b8-fd15/)
+* [InsureCamSampleDesign](https://xd.adobe.com/view/8b24a1e3-489f-4744-5d6e-dfd77727b0b8-fd15/)
     
 # Backend
 ## Setup
