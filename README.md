@@ -21,9 +21,11 @@ Adding voice commands to reduce distractions for a driver.
 amazon-web-services | rekognition | flask | react | java | android-studio | sqlalchemy | opencv | azure
 
 # Contributers 
-
-@jrobchin , @KshitijShah-GitHub , @nicolae-stroncea , @SimranS224
-
+    * [Jason Chin](https://github.com/jrobchin)
+    * [Kshitij Shah](https://github.com/KshitijShah-GitHub)
+    * [Nicolae Strincea](https://github.com/nicolae-stroncea)
+    * [Simran Singh](https://github.com/SimranS224)
+    
 # Backend
 ## Setup
 ```
